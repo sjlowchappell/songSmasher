@@ -48,13 +48,12 @@ $(document).ready(function () {
         }).then(function(res){
             console.log('It worked!');
             console.log(res);
+            const songInfo = res.message.body.track_list[0].track;
+            printSong(songInfo.track_name, songInfo.artist_name, songInfo.album_name);
         });
     };
 
     console.log(songURL);
-
-    
-    
     
     $('form').on('submit', function(e) {
         e.preventDefault();
@@ -62,6 +61,10 @@ $(document).ready(function () {
         artistName = $('#artistName').val();
         makeRequest(songName, artistName);
     })
+
+    const printSong = (songName, songArtist, songAlbum) => {
+        $('.song').append(`<p>${songName} by ${songArtist} from the album ${songAlbum}</p>`);
+    };
 
 
 
