@@ -30,6 +30,7 @@ $(document).ready(function () {
 
     const songURL = 'http://api.musixmatch.com/ws/1.1/track.lyrics.get';
 
+    // Makes request to musixmatch API based on user input song and artist information
     const makeRequest = (userInputSong, userInputArtist) => {
         $.ajax({
             type: "GET",
@@ -49,11 +50,10 @@ $(document).ready(function () {
             console.log('It worked!');
             console.log(res);
             const songInfo = res.message.body.track_list[0].track;
+            // Print song info to the page
             printSong(songInfo.track_name, songInfo.artist_name, songInfo.album_name);
         });
     };
-
-    console.log(songURL);
     
     $('form').on('submit', function(e) {
         e.preventDefault();
