@@ -114,8 +114,7 @@ $(document).ready(function () {
         e.preventDefault();
         songApp.songName = $('#songName').val();
         songApp.artistName = $('#artistName').val();
-        songApp.searchSong(songApp.songName, songApp.artistName)
-        // makeRequest(songName, artistName);
+        songApp.searchSong(songApp.songName, songApp.artistName);
     })
 
     $('.smashButton').on('click', function (e) {
@@ -124,38 +123,4 @@ $(document).ready(function () {
     })
 
     console.log("ready!");
-
-
-    // let songName = '';
-    // let artistName = '';
-    // const songLyrics = [];
-    // const smashedLyrics = [];
-    // const apiKey = '5bd428e80ba2d105deb6caa361ace5d6';
-
-    // const songURL = 'http://api.musixmatch.com/ws/1.1/track.lyrics.get';
-
-    // // Makes request to musixmatch API based on user input song and artist information
-    // const makeRequest = (userInputSong, userInputArtist) => {
-    //     $.ajax({
-    //         url: "https://api.musixmatch.com/ws/1.1/track.search",
-    //         type: "GET",
-    //         data: {
-    //             apikey: apiKey,
-    //             q_track: userInputSong,
-    //             q_artist: userInputArtist,
-    //             page_size: '1',
-    //             format: "jsonp"
-    //         },
-    //         dataType: "jsonp"
-    //     }).then(function(res){
-    //         console.log('It worked!');
-    //         console.log(res);
-    //         const songInfo = res.message.body.track_list[0].track;
-    //         // Print song info to the page
-    //         printSong(songInfo.track_name, songInfo.artist_name, songInfo.album_name, songInfo.track_id);
-    //     });
-    // };
-    // const printSong = (songName, songArtist, songAlbum, songID) => {
-    //     $('.song').append(`<p>${songName} by ${songArtist} from the album ${songAlbum}. Track id is: ${songID}</p>`);
-    // };
 });
