@@ -4,11 +4,11 @@
 // App makes api call to musixmatch with song name -> track.search DONE
 // Api call returns song id DONE
 
-// App makes api call to musixmatch with song id -> track.lyrics.get
-// Api call returns song lyrics
-// Song lyrics saved in a string
-// Parse string by white space and save lyrics into an array word by word -> use the split method
-// App prints song lyrics string to the page
+// App makes api call to musixmatch with song id -> track.lyrics.get DONE
+// Api call returns song lyrics DONE
+// Song lyrics saved in a string DONE
+// Parse string by white space and save lyrics into an array word by word -> use the split method DONE
+// App prints song lyrics string to the page DONE
 
 // User clicks "Smash this song" button
 
@@ -31,16 +31,18 @@ songApp.smashedLyrics = '';
 
 // Appends the song lyrics to a given section
 songApp.printLyrics = (section, lyrics) => {
+    // splits lyrics string by new lines
     let newLyricsArray = lyrics.split('\n');
+    // removes the ugly added content from musixmatch
     newLyricsArray.length = newLyricsArray.length - 3;
-    console.log(newLyricsArray);
+    // appends each line to given section from the html
     for (line in newLyricsArray) {
         $(section).append(`<p>${newLyricsArray[line]}</p>`);
     }
 }
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) =>{
-    console.log(`user input song: ${userInputSong} and artist: ${userInputArtist}`)
+    // Ajax request
     $.ajax({
         url: `${songApp.musicURL}track.search`,
         type: 'GET',
@@ -53,14 +55,14 @@ songApp.searchSong = (userInputSong, userInputArtist) =>{
         },
         dataType: "jsonp"
     }).then(res => {
-        // sends the track id to the get lyrics method
+        // sends the track id to the getLyrics method
         songApp.getLyrics(res.message.body.track_list[0].track.track_id);
     });
 };
 
 // gets the lyrics to a song from the musixmatch API based on returned track id
 songApp.getLyrics = (musixTrackID) => {
-    console.log(musixTrackID);
+    // Ajax request
     $.ajax({
         url: `${songApp.musicURL}track.lyrics.get`,
         type: "GET",
@@ -71,12 +73,15 @@ songApp.getLyrics = (musixTrackID) => {
         },
         dataType: "jsonp"
     }).then(res => {
-        // saves the song lyrics
-        songApp.songLyrics = res.message.body.lyrics.lyrics_body;
-        // prints the song lyrics after the original song section in the html
-        
-        // console.log(newLyricsArray);
-        songApp.printLyrics('.originalSong', songApp.songLyrics);
+        // Checks to see if there are available lyrics be seeing if the body is empty
+        if ($.isEmptyObject(res.message.body)) {
+            // If there are no available lyrics, a message is printed to say that they are unavailable
+            $('.originalSong').append(`<p>Sorry, no lyrics for that song currently available</p>`);
+        } else {
+            // if there are lyrics, saves the lyrics and prints them on the page
+            songApp.songLyrics = res.message.body.lyrics.lyrics_body;
+            songApp.printLyrics('.originalSong', songApp.songLyrics);
+        }     
     });
 };
 
