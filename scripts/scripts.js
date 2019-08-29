@@ -4,6 +4,8 @@
 // App makes api call to musixmatch with song name -> track.search DONE
 // Api call returns song id DONE
 
+// Need to find a way to return the correct song rather than a weird cover version in initial request
+
 // App makes api call to musixmatch with song id -> track.lyrics.get DONE
 // Api call returns song lyrics DONE
 // Song lyrics saved in a string DONE
@@ -29,17 +31,6 @@ songApp.artistName = '';
 songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 
-// Appends the song lyrics to a given section
-songApp.printLyrics = (section, lyrics) => {
-    // splits lyrics string by new lines
-    let newLyricsArray = lyrics.split('\n');
-    // removes the ugly added content from musixmatch
-    newLyricsArray.length = newLyricsArray.length - 3;
-    // appends each line to given section from the html
-    for (line in newLyricsArray) {
-        $(section).append(`<p>${newLyricsArray[line]}</p>`);
-    }
-}
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) =>{
     // Ajax request
@@ -56,6 +47,8 @@ songApp.searchSong = (userInputSong, userInputArtist) =>{
         dataType: "jsonp"
     }).then(res => {
         // sends the track id to the getLyrics method
+        songApp.songName = res.message.body.track_list[0].track.track_name;
+        songApp.artistName = res.message.body.track_list[0].track.artist_name;
         songApp.getLyrics(res.message.body.track_list[0].track.track_id);
     });
 };
@@ -73,17 +66,31 @@ songApp.getLyrics = (musixTrackID) => {
         },
         dataType: "jsonp"
     }).then(res => {
-        // Checks to see if there are available lyrics be seeing if the body is empty
+        // Checks to see if there are available lyrics by seeing if the body of the returned info is empty
         if ($.isEmptyObject(res.message.body)) {
-            // If there are no available lyrics, a message is printed to say that they are unavailable
+            // If there are no available lyrics, a message is printed to say that there are no lyrics unavailable
             $('.originalSong').append(`<p>Sorry, no lyrics for that song currently available</p>`);
         } else {
-            // if there are lyrics, saves the lyrics and prints them on the page
+            // if there are lyrics, saves the lyrics and prints them on the page after the original song section
             songApp.songLyrics = res.message.body.lyrics.lyrics_body;
             songApp.printLyrics('.originalSong', songApp.songLyrics);
         }     
     });
 };
+
+// Appends the song lyrics to a given section
+songApp.printLyrics = (section, lyrics) => {
+    // splits lyrics string by new lines
+    let newLyricsArray = lyrics.split('\n');
+    // removes the ugly added content from musixmatch
+    newLyricsArray.length = newLyricsArray.length - 4;
+    // a title is added specifying the searched song title and artist
+    $(section).append(`<h3>Lyrics for ${songApp.songName} by ${songApp.artistName}`)
+    // appends each line of the lyrics to given section from the html
+    for (line in newLyricsArray) {
+        $(section).append(`<p>${newLyricsArray[line]}</p>`);
+    }
+}
 
 // Method that takes in a lyrics string and a modifier based on smash level
 // songApp.smashLyrics = (lyrics, n) => {
@@ -117,10 +124,10 @@ $(document).ready(function () {
         songApp.searchSong(songApp.songName, songApp.artistName);
     })
 
-    $('.smashButton').on('click', function (e) {
-        e.preventDefault();
-        songApp.smashLyrics(songApp.songLyrics, 10);
-    })
+    // $('.smashButton').on('click', function (e) {
+    //     e.preventDefault();
+    //     songApp.smashLyrics(songApp.songLyrics, 10);
+    // })
 
     console.log("ready!");
 });
