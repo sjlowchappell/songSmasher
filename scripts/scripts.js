@@ -29,17 +29,23 @@ songApp.artistName = '';
 songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 
-
+// Appends the song lyrics to a given section
 songApp.printLyrics = (section, lyrics) => {
-    $(section).append(`<p>${lyrics}</p>`);
+    let newLyricsArray = lyrics.split('\n');
+    newLyricsArray.length = newLyricsArray.length - 3;
+    console.log(newLyricsArray);
+    for (line in newLyricsArray) {
+        $(section).append(`<p>${newLyricsArray[line]}</p>`);
+    }
 }
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) =>{
+    console.log(`user input song: ${userInputSong} and artist: ${userInputArtist}`)
     $.ajax({
         url: `${songApp.musicURL}track.search`,
         type: 'GET',
         data: {
-            apikey: apiKey,
+            apikey: songApp.musicApiKey,
             q_track: userInputSong,
             q_artist: userInputArtist,
             page_size: '1',
@@ -47,52 +53,55 @@ songApp.searchSong = (userInputSong, userInputArtist) =>{
         },
         dataType: "jsonp"
     }).then(res => {
-        // saves the lyrics in a string
-        songApp.songLyrics = songApp.getLyrics(res.message.body.track_list[0].track.track_id);
-        // splits the string so that each word is saved in an array to be smashed later
-        songApp.printLyrics('.originalSong', lyrics);
+        // sends the track id to the get lyrics method
+        songApp.getLyrics(res.message.body.track_list[0].track.track_id);
     });
 };
 
 // gets the lyrics to a song from the musixmatch API based on returned track id
 songApp.getLyrics = (musixTrackID) => {
+    console.log(musixTrackID);
     $.ajax({
         url: `${songApp.musicURL}track.lyrics.get`,
         type: "GET",
         data: {
-            apikey: apiKey,
+            apikey: songApp.musicApiKey,
             track_id: musixTrackID,
             format: "jsonp"
         },
         dataType: "jsonp"
     }).then(res => {
-        // returns the lyrics
-        return res.message.body.lyrics.lyrics_body;
+        // saves the song lyrics
+        songApp.songLyrics = res.message.body.lyrics.lyrics_body;
+        // prints the song lyrics after the original song section in the html
+        
+        // console.log(newLyricsArray);
+        songApp.printLyrics('.originalSong', songApp.songLyrics);
     });
 };
 
 // Method that takes in a lyrics string and a modifier based on smash level
-songApp.smashLyrics = (lyrics, n) => {
-    const originalLyrics = lyrics.split(' ');
-    const newLyrics = [];
-    for (i = 0; i < originalLyrics.length; i++) {
-        if (i % n == 0) {
-            $.ajax({
-                url: songApp.thesaurusURL,
-                type: "GET",
-                data: {
+// songApp.smashLyrics = (lyrics, n) => {
+//     const originalLyrics = lyrics.split(' ');
+//     const newLyrics = [];
+//     for (i = 0; i < originalLyrics.length; i++) {
+//         if (i % n == 0) {
+//             $.ajax({
+//                 url: songApp.thesaurusURL,
+//                 type: "GET",
+//                 data: {
         
-                }
-            }).then(res => {
-                newLyrics.push(!!!!!res!!!!!);
-            })
-        } else {
-            newLyrics.push(originalLyrics[i]);
-        }
-    }
-    songApp.smashedLyrics = newLyrics.join(' ');
-    printLyrics('.smashedSong', songApp.smashedLyrics);
-}
+//                 }
+//             }).then(res => {
+//                 newLyrics.push(!!!!!res!!!!!);
+//             })
+//         } else {
+//             newLyrics.push(originalLyrics[i]);
+//         }
+//     }
+//     songApp.smashedLyrics = newLyrics.join(' ');
+//     printLyrics('.smashedSong', songApp.smashedLyrics);
+// }
 
 
 $(document).ready(function () {
