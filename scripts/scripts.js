@@ -110,10 +110,10 @@ songApp.smashLyrics = (lyrics, n) => {
         for (let i = 0; i < individualWords.length; i++) {
             if (i !== 0 && (i % n == 0) && !individualWords[i].includes('\n')) {
                 const response = await getWordResponse(individualWords[i]);
-                if (response[0].meta != undefined){
+                if (response[0].hasOwnProperty('meta')) {
                     sillyLyrics.push(response[0].meta.syns[0][0]);
                 } else {
-                    sillyLyrics.push(individualWords[i]);
+                    sillyLyrics.push(response[0]);
                 }
             } else if ((i % n == 0) && individualWords[i].includes('\n')) {
                 sillyLyrics.push(individualWords[i]);
