@@ -96,6 +96,7 @@ songApp.printLyrics = (section, lyrics) => {
     }
 }
 
+// takes the original song lyrics and a silly word frequency value (n). creates new song lyrics with random silly words depending on n value
 songApp.smashLyrics = (lyrics, n) => {
     const individualWords = lyrics.split(' ');
     const sillyLyrics = [];
