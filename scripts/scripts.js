@@ -4,7 +4,6 @@
 // App makes api call to musixmatch with song name -> track.search DONE
 // Api call returns song id DONE
 
-// Need to find a way to return the correct song rather than a weird cover version in initial request
 
 // App makes api call to musixmatch with song id -> track.lyrics.get DONE
 // Api call returns song lyrics DONE
@@ -14,13 +13,17 @@
 
 // User clicks "Smash this song" button DONE
 
-// Look up synonym for each word DONE
-// Save synonym for each word in an array DONE
-// concatanate array with white spaces (excluding final word) DONE
-// print string DONE
+// iterate through original song lyrics DONE
+// Look up synonym for words based on n frequency of weird words DONE
+// Save synonyms for in a new array DONE
+// Save normal words in new array DONE
+// concatanate array with white spaces DONE
+// print silly lyrics to page DONE
 
 // TO DO:
 // enable and disable the "smash this song button" based on what's on the page so far
+// Need to find a way to return the correct song rather than a weird cover version in initial request
+// review thesaurus api to ensure I am making calls correctly for individual words
 
 const songApp = {};
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
