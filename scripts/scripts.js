@@ -19,13 +19,14 @@
 // concatanate array with white spaces (excluding final word) DONE
 // print string DONE
 
-const songApp = {};
+// TO DO:
+// enable and disable the "smash this song button" based on what's on the page so far
 
+const songApp = {};
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
 songApp.thesaurusURL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/';
 songApp.thesaurusApiKey = '9778e990-d5f5-49d8-88af-881a41b463a3';
-
 songApp.songName = '';
 songApp.artistName = '';
 songApp.songLyrics = '';
@@ -95,7 +96,8 @@ songApp.printLyrics = (section, lyrics) => {
 songApp.smashLyrics = (lyrics, n) => {
     const individualWords = lyrics.split(' ');
     const sillyLyrics = [];
- 
+    
+    // makes an api call to get a response for the async function
     const getWordResponse = (word) => {
         return $.ajax({
             url: `${songApp.thesaurusURL}${word}`,
@@ -105,34 +107,43 @@ songApp.smashLyrics = (lyrics, n) => {
             }
         });
     };
-
+    // async function so that we can build the song lyrics array with new words
     async function createNewSong() {
+        // loops through an array of all the individual words of the original song
         for (let i = 0; i < individualWords.length; i++) {
+            // based on input interval input n, grabs words in array. Makes sure it doesn't take the first word and checks for any words that may have a line break in them. example: if n = 10, this will take every tenth word check if it includes a line break in the word
+            // if the the selected word is the 10th word but has a line break, it will look up the following word instead
+            // otherwise, the original word from the song remains the same
             if (i !== 0 && (i % n == 0) && !individualWords[i].includes('\n')) {
+                // if the word is selected, send it to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i]);
+                // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
                 if (response[0].hasOwnProperty('meta')) {
                     sillyLyrics.push(response[0].meta.syns[0][0]);
                 } else {
                     sillyLyrics.push(response[0]);
                 }
             } else if ((i % n == 0) && individualWords[i].includes('\n')) {
+                // if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
                 sillyLyrics.push(individualWords[i]);
+                // then send the next word to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i+1]);
-                if (response[0].meta != undefined){
+                // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
+                if (response[0].hasOwnProperty('meta')) {
                     sillyLyrics.push(response[0].meta.syns[0][0]);
                 } else {
-                    sillyLyrics.push(individualWords[i+1]);
+                    sillyLyrics.push(response[0]);
                 }
+                // iterates an extra i so that no duplicate words are added to the array
                 i++;
             }
             else {
                 sillyLyrics.push(individualWords[i]);
             }
         }
-        const newSong = sillyLyrics.join(' ');
-        songApp.printLyrics('.smashedSong', newSong);
+        // sends the new song to print lyrics so that the new lyrics are printed on the page
+        songApp.printLyrics('.smashedSong', sillyLyrics.join(' '));
     }
-
     createNewSong();
 };
 
