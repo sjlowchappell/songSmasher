@@ -12,19 +12,19 @@
 // Parse string by white space and save lyrics into an array word by word -> use the split method DONE
 // App prints song lyrics string to the page DONE
 
-// User clicks "Smash this song" button
+// User clicks "Smash this song" button DONE
 
-// Map function song lyrics array
-// Look up synonym for each word
-// Save synonym for each word in an array
-// concatanate array with white spaces (excluding final word)
-// print string
+// Look up synonym for each word DONE
+// Save synonym for each word in an array DONE
+// concatanate array with white spaces (excluding final word) DONE
+// print string DONE
 
 const songApp = {};
 
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
-songApp.thesaurusURL = '';
+songApp.thesaurusURL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/';
+songApp.thesaurusApiKey = '9778e990-d5f5-49d8-88af-881a41b463a3';
 
 songApp.songName = '';
 songApp.artistName = '';
@@ -32,7 +32,7 @@ songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 
 // Searches the musixmatch API for a track id
-songApp.searchSong = (userInputSong, userInputArtist) =>{
+songApp.searchSong = (userInputSong, userInputArtist) => {
     // Ajax request
     $.ajax({
         url: `${songApp.musicURL}track.search`,
@@ -92,29 +92,49 @@ songApp.printLyrics = (section, lyrics) => {
     }
 }
 
-// Method that takes in a lyrics string and a modifier based on smash level
-// songApp.smashLyrics = (lyrics, n) => {
-//     const originalLyrics = lyrics.split(' ');
-//     const newLyrics = [];
-//     for (i = 0; i < originalLyrics.length; i++) {
-//         if (i % n == 0) {
-//             $.ajax({
-//                 url: songApp.thesaurusURL,
-//                 type: "GET",
-//                 data: {
-        
-//                 }
-//             }).then(res => {
-//                 newLyrics.push(!!!!!res!!!!!);
-//             })
-//         } else {
-//             newLyrics.push(originalLyrics[i]);
-//         }
-//     }
-//     songApp.smashedLyrics = newLyrics.join(' ');
-//     printLyrics('.smashedSong', songApp.smashedLyrics);
-// }
+songApp.smashLyrics = (lyrics, n) => {
+    const individualWords = lyrics.split(' ');
+    const sillyLyrics = [];
+ 
+    const getWordResponse = (word) => {
+        return $.ajax({
+            url: `${songApp.thesaurusURL}${word}`,
+            type: 'GET',
+            data: {
+                key: songApp.thesaurusApiKey
+            }
+        });
+    };
 
+    async function createNewSong() {
+        for (let i = 0; i < individualWords.length; i++) {
+            if (i !== 0 && (i % n == 0) && !individualWords[i].includes('\n')) {
+                const response = await getWordResponse(individualWords[i]);
+                if (response[0].meta != undefined){
+                    sillyLyrics.push(response[0].meta.syns[0][0]);
+                } else {
+                    sillyLyrics.push(individualWords[i]);
+                }
+            } else if ((i % n == 0) && individualWords[i].includes('\n')) {
+                sillyLyrics.push(individualWords[i]);
+                const response = await getWordResponse(individualWords[i+1]);
+                if (response[0].meta != undefined){
+                    sillyLyrics.push(response[0].meta.syns[0][0]);
+                } else {
+                    sillyLyrics.push(individualWords[i+1]);
+                }
+                i++;
+            }
+            else {
+                sillyLyrics.push(individualWords[i]);
+            }
+        }
+        const newSong = sillyLyrics.join(' ');
+        songApp.printLyrics('.smashedSong', newSong);
+    }
+
+    createNewSong();
+};
 
 $(document).ready(function () {
     $('form').on('submit', function (e) {
@@ -122,12 +142,10 @@ $(document).ready(function () {
         songApp.songName = $('#songName').val();
         songApp.artistName = $('#artistName').val();
         songApp.searchSong(songApp.songName, songApp.artistName);
+    });
+
+    $('.smashButton').on('click', function (e) {
+        e.preventDefault();
+        songApp.smashLyrics(songApp.songLyrics, 10);
     })
-
-    // $('.smashButton').on('click', function (e) {
-    //     e.preventDefault();
-    //     songApp.smashLyrics(songApp.songLyrics, 10);
-    // })
-
-    console.log("ready!");
 });
