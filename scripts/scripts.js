@@ -21,9 +21,11 @@
 // print silly lyrics to page DONE
 
 // TO DO:
-// enable and disable the "smash this song button" based on what's on the page so far
+// enable and disable the "smash this song button" based on what's on the page so far DONE
 // Need to find a way to return the correct song rather than a weird cover version in initial request
 // review thesaurus api to ensure I am making calls correctly for individual words
+// randomize the words returned from thesaurus api
+// add ternanry statements to shorten checks
 
 const songApp = {};
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
@@ -78,6 +80,8 @@ songApp.getLyrics = (musixTrackID) => {
             // if there are lyrics, saves the lyrics and prints them on the page after the original song section
             songApp.songLyrics = res.message.body.lyrics.lyrics_body;
             songApp.printLyrics('.originalSong', songApp.songLyrics);
+            // After the song has been printed, enables the smash button
+            $('.smashButton').removeAttr('disabled');
         }     
     });
 };
@@ -100,6 +104,9 @@ songApp.printLyrics = (section, lyrics) => {
 songApp.smashLyrics = (lyrics, n) => {
     const individualWords = lyrics.split(' ');
     const sillyLyrics = [];
+
+    // Disables the smash button so that the user does not make multiple calls to the thesaurus api
+    $('.smashButton').attr('disabled', 'disabled');
     
     // makes an api call to get a response for the async function
     const getWordResponse = (word) => {
@@ -122,22 +129,14 @@ songApp.smashLyrics = (lyrics, n) => {
                 // if the word is selected, send it to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i]);
                 // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
-                if (response[0].hasOwnProperty('meta')) {
-                    sillyLyrics.push(response[0].meta.syns[0][0]);
-                } else {
-                    sillyLyrics.push(response[0]);
-                }
+                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][0] : response[0]);
             } else if ((i % n == 0) && individualWords[i].includes('\n')) {
                 // if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
                 sillyLyrics.push(individualWords[i]);
                 // then send the next word to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i+1]);
                 // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
-                if (response[0].hasOwnProperty('meta')) {
-                    sillyLyrics.push(response[0].meta.syns[0][0]);
-                } else {
-                    sillyLyrics.push(response[0]);
-                }
+                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][0] : response[0]);
                 // iterates an extra i so that no duplicate words are added to the array
                 i++;
             }
