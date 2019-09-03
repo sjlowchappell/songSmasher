@@ -24,8 +24,8 @@
 // enable and disable the "smash this song button" based on what's on the page so far DONE
 // Need to find a way to return the correct song rather than a weird cover version in initial request
 // review thesaurus api to ensure I am making calls correctly for individual words
-// randomize the words returned from thesaurus api
-// add ternanry statements to shorten checks
+// randomize the words returned from thesaurus api DONE
+// add ternanry statements to shorten checks DONE
 
 const songApp = {};
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
@@ -48,6 +48,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
             q_track: userInputSong,
             q_artist: userInputArtist,
             page_size: '1',
+            s_track_rating: 'desc',
             format: "jsonp"
         },
         dataType: "jsonp"
@@ -118,6 +119,11 @@ songApp.smashLyrics = (lyrics, n) => {
             }
         });
     };
+
+    // get random number function used to get a random index to select word from the array of word options in the thesaurus api response
+    function getRandomNumber(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+    }
     // async function so that we can build the song lyrics array with new words
     async function createNewSong() {
         // loops through an array of all the individual words of the original song
@@ -128,15 +134,16 @@ songApp.smashLyrics = (lyrics, n) => {
             if (i !== 0 && (i % n == 0) && !individualWords[i].includes('\n')) {
                 // if the word is selected, send it to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i]);
-                // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
-                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][0] : response[0]);
+                console.log(response);
+                // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
+                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)] : response[getRandomNumber(response.length)]);
             } else if ((i % n == 0) && individualWords[i].includes('\n')) {
                 // if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
                 sillyLyrics.push(individualWords[i]);
                 // then send the next word to the ajax call and store the response
                 const response = await getWordResponse(individualWords[i+1]);
-                // checks to see whether the word has synonyms (includes the property meta), and if not, it returns the first suggested word
-                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][0] : response[0]);
+                // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
+                sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)] : response[getRandomNumber(response.length)]);
                 // iterates an extra i so that no duplicate words are added to the array
                 i++;
             }
