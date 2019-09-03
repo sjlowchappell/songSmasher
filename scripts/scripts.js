@@ -1,33 +1,3 @@
-// User goes to website
-// User inputs a song name in search bar DONE
-// App saves user input in a variable DONE
-// App makes api call to musixmatch with song name -> track.search DONE
-// Api call returns song id DONE
-
-
-// App makes api call to musixmatch with song id -> track.lyrics.get DONE
-// Api call returns song lyrics DONE
-// Song lyrics saved in a string DONE
-// Parse string by white space and save lyrics into an array word by word -> use the split method DONE
-// App prints song lyrics string to the page DONE
-
-// User clicks "Smash this song" button DONE
-
-// iterate through original song lyrics DONE
-// Look up synonym for words based on n frequency of weird words DONE
-// Save synonyms for in a new array DONE
-// Save normal words in new array DONE
-// concatanate array with white spaces DONE
-// print silly lyrics to page DONE
-
-// TO DO:
-// enable and disable the "smash this song button" based on what's on the page so far DONE
-// Need to find a way to return the correct song rather than a weird cover version in initial request DONE
-// review thesaurus api to ensure I am making calls correctly for individual words
-// randomize the words returned from thesaurus api DONE
-// add ternanry statements to shorten checks DONE
-// Add new buttons so there are 3 smash options
-
 const songApp = {};
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
@@ -194,3 +164,35 @@ $(document).ready(function () {
         }
     })
 });
+
+
+// User goes to website
+// User inputs a song name in search bar DONE
+// App saves user input in a variable DONE
+// App makes api call to musixmatch with song name -> track.search DONE
+// Api call returns song id DONE
+
+
+// App makes api call to musixmatch with song id -> track.lyrics.get DONE
+// Api call returns song lyrics DONE
+// Song lyrics saved in a string DONE
+// Parse string by white space and save lyrics into an array word by word -> use the split method DONE
+// App prints song lyrics string to the page DONE
+
+// User clicks "Smash this song" button DONE
+
+// iterate through original song lyrics DONE
+// Look up synonym for words based on n frequency of weird words DONE
+// Save synonyms for in a new array DONE
+// Save normal words in new array DONE
+// concatanate array with white spaces DONE
+// print silly lyrics to page DONE
+
+// TO DO:
+// enable and disable the "smash this song button" based on what's on the page so far DONE
+// Need to find a way to return the correct song rather than a weird cover version in initial request DONE
+// review thesaurus api to ensure I am making calls correctly for individual words
+// randomize the words returned from thesaurus api DONE
+// add ternanry statements to shorten checks DONE
+// Add new buttons so there are 3 smash options DONE
+// Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms
