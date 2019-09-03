@@ -155,6 +155,7 @@ body {
 
 h1, h2, h3, h4 {
   font-family: "Alfa Slab One", cursive;
+  color: #2c3e50;
   letter-spacing: .3rem; }
 
 h1 {
@@ -183,10 +184,11 @@ header {
     left: 0px;
     content: "";
     width: 70px;
-    border-bottom: 4px solid #2c3e50; }
+    border-bottom: 4px solid #2c3e50;
+    border-bottom: 4px solid #35955f; }
 
 .title {
-  color: #2c3e50; }
+  color: #35955f; }
 
 html {
   text-align: center; }
@@ -197,14 +199,14 @@ body {
 
 button {
   padding: 10px;
-  background: #c1c1c1;
+  background: #67c992;
   color: #333;
   border-radius: 10px; }
   button:hover {
-    background: #8e8e8e; }
+    background: #43ba77; }
   button:disabled {
     color: rgba(51, 51, 51, 0.5);
-    background: rgba(244, 244, 244, 0.5); }
+    background: rgba(216, 241, 227, 0.5); }
 
 .wrapper {
   max-width: 1080px;
