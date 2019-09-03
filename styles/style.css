@@ -1,0 +1,9 @@
+html {
+  text-align: center; }
+
+.wrapper {
+  width: 900px;
+  margin: 0 auto; }
+
+.originalSong, .smashedSong {
+  text-align: left; }

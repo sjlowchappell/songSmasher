@@ -4,34 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" href="./scripts/style.css"> -->
+    <link rel="stylesheet" href="./styles/style.css">
     <title>Song Smasher</title>
 </head>
 <body>
     <header>
-        <h1>Song Smasher</h1>
-        <p>Your favorite lyrics...just a little off</p>
+        <div class="wrapper">
+            <h1>Song Smasher</h1>
+            <p>Your favorite lyrics...just a little off</p>
+        </div>
     </header>
     <main>
-        <form action="">
-            <label for="songName">Enter a Song Name</label>
-            <input type="text" id="songName" required>
-            <label for="artistName">Enter the Name of the Artist</label>
-            <input type="text" id="artistName" required>
-    
-            <button>Submit</button>
-        </form>
-    
-        <div class='originalSong'>
-    
-        </div>
-    
-        <button disabled class='smashButton' name='smallSmash'>Gimme a small smash</button>
-        <button disabled class='smashButton' name='normalSmash'>Smash this Song</button>
-        <button disabled class='smashButton' name='bigSmash'>DESTROY THIS SONG</button>
-    
-        <div class='smashedSong'>
-    
+        <div class="wrapper">
+            <form action="">
+                <label for="songName">Enter a Song Name:</label>
+                <input type="text" id="songName" required>
+                <label for="artistName">Enter the Name of the Artist:</label>
+                <input type="text" id="artistName" required>
+        
+                <button>Submit</button>
+            </form>
+        
+            <div class='originalSong'></div>
+        
+            <button disabled class='smashButton' name='smallSmash'>Gimme a small smash</button>
+            <button disabled class='smashButton' name='normalSmash'>Smash this Song</button>
+            <button disabled class='smashButton' name='bigSmash'>DESTROY THIS SONG</button>
+        
+            <div class='smashedSong'></div>
         </div>
     
     </main>
