@@ -1,17 +1,40 @@
+@import './normalize';
+@import './variables';
+@import './typography';
+@import './header';
+@import './form';
+@import './songLyrics';
+
 html {
     text-align: center;
 }
 
-.wrapper {
-    width: 900px;
-    margin: 0 auto;
+body {
+    background: $secondary;
+    color: $tertiary;
 }
 
-header {
+button {
+    padding: 10px;
+    background: darken($secondary, 20);
+    color: $tertiary;
+    border-radius: 10px;
+    &:hover {
+        background: darken($secondary, 40);
+    }
+    &:disabled {
+        color: rgba($tertiary, .5);
+        background: rgba($secondary, .5);
+    }
 }
+
+.wrapper {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 15px;
+}
+
 .originalSong, .smashedSong {
     text-align: left;
-}
-
-footer {
+    display: none;
 }

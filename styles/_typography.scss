@@ -1,0 +1,24 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2rem;
+  font-family: $primaryFont;
+  line-height: 1.8;
+}
+
+h1, h2, h3, h4 {
+  font-family: $headingFont;
+  letter-spacing: .3rem;
+}
+
+h1 {
+  font-size: 8rem;
+  margin: 0;
+  padding: 0;
+}
+
+p, label, button {
+  font-size: 2rem;
+}

@@ -69,11 +69,12 @@ songApp.printLyrics = (section, lyrics) => {
     // removes the ugly added content from musixmatch
     newLyricsArray.length = newLyricsArray.length - 4;
     // a title is added specifying the searched song title and artist
-    $(section).append(`<h3>Lyrics for ${songApp.songName} by ${songApp.artistName}`)
+    $(section).append(`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`)
     // appends each line of the lyrics to given section from the html
     for (line in newLyricsArray) {
         $(section).append(`<p>${newLyricsArray[line]}</p>`);
     }
+    $(section).css('display', 'block');
 }
 
 // takes the original song lyrics and a silly word frequency value (n). creates new song lyrics with random silly words depending on n value
