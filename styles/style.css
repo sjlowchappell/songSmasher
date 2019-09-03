@@ -197,6 +197,20 @@ body {
   background: #F4F4F4;
   color: #333; }
 
+.buttons {
+  padding: 50px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  width: 70%;
+  margin: 0 auto; }
+  .buttons .smashButton {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto; }
+
 button {
   padding: 10px;
   background: #67c992;
