@@ -15,9 +15,9 @@
     <main>
         <form action="">
             <label for="songName">Enter a Song Name</label>
-            <input type="text" id="songName">
+            <input type="text" id="songName" required>
             <label for="artistName">Enter the Name of the Artist</label>
-            <input type="text" id="artistName">
+            <input type="text" id="artistName" required>
     
             <button>Submit</button>
         </form>
@@ -26,7 +26,9 @@
     
         </div>
     
-        <button disabled class='smashButton'>Smash this Song</button>
+        <button disabled class='smashButton' name='smallSmash'>Gimme a small smash</button>
+        <button disabled class='smashButton' name='normalSmash'>Smash this Song</button>
+        <button disabled class='smashButton' name='bigSmash'>DESTROY THIS SONG</button>
     
         <div class='smashedSong'>
     
