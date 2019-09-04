@@ -172,11 +172,15 @@ p, label, button {
 
 @media (max-width: 450px) {
   h1 {
-    font-size: 5rem; } }
+    font-size: 6rem; } }
 
 header {
   color: #2c3e50;
   padding: 10vh 0; }
+
+@media (max-width: 700px) {
+  header {
+    padding: 5vh 0; } }
 
 form {
   display: -webkit-box;
@@ -282,7 +286,8 @@ button {
 
 footer {
   background: #333;
-  color: #F4F4F4; }
+  color: #F4F4F4;
+  padding: 15px 0px; }
   footer .logos {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -328,7 +333,7 @@ img {
 .wrapper {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 15px; }
+  padding: 0px 15px; }
 
 .originalSong, .smashedSong {
   text-align: left;
