@@ -3,10 +3,9 @@ footer {
     color: $bodyBackgroundColor;
     .logos {
         display: flex;
-        // flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        width: 40%;
+        width: 50%;
         margin: 0 auto;
     }
     .logo {
@@ -17,10 +16,17 @@ footer {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     footer {
         .logos {
             width: 70%;
+        }
+    }
+}
+@media (max-width: 450px) {
+    footer {
+        .logos {
+            flex-direction: column;
         }
     }
 }

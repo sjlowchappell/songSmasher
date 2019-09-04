@@ -170,6 +170,10 @@ h4 {
 p, label, button {
   font-size: 2rem; }
 
+@media (max-width: 450px) {
+  h1 {
+    font-size: 5rem; } }
+
 header {
   color: #2c3e50;
   padding: 10vh 0; }
@@ -232,6 +236,10 @@ form {
 .title {
   color: #35955f; }
 
+@media (max-width: 450px) {
+  .lyrics {
+    padding: 35px 5%; } }
+
 .buttons {
   padding: 50px 0px;
   display: -webkit-box;
@@ -284,16 +292,23 @@ footer {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    width: 40%;
+    width: 50%;
     margin: 0 auto; }
   footer .logo {
     margin: 15px; }
   footer .mw {
     max-width: 140px; }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   footer .logos {
     width: 70%; } }
+
+@media (max-width: 450px) {
+  footer .logos {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
 
 html {
   text-align: center;

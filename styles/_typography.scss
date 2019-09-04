@@ -29,3 +29,9 @@ p, label, button {
   font-size: 2rem;
 }
 
+@media (max-width: 450px) {
+  h1 {
+    font-size: 5rem;
+  }
+}
+
