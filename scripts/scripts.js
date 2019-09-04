@@ -24,9 +24,10 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
         },
         dataType: "jsonp"
     }).then(res => {
+        console.log(res);
         // sends the track id to the getLyrics method
         if (res.message.body.track_list[0] === undefined) {
-            $('.originalSong').append(`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`);
+            $('.originalSong').append(`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`).css('display', 'block');
         } else {
             songApp.songName = res.message.body.track_list[0].track.track_name;
             songApp.artistName = res.message.body.track_list[0].track.artist_name;
