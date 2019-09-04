@@ -24,7 +24,6 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
         },
         dataType: "jsonp"
     }).then(res => {
-        console.log(res);
         // sends the track id to the getLyrics method
         if (res.message.body.track_list[0] === undefined) {
             $('.originalSong').append(`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`).css('display', 'block');
@@ -63,29 +62,14 @@ songApp.getLyrics = (musixTrackID) => {
     });
 };
 
-// Appends the song lyrics to a given section
-songApp.printLyrics = (section, lyrics) => {
-    // splits lyrics string by new lines
-    let newLyricsArray = lyrics.split('\n');
-    // removes the ugly added content from musixmatch
-    newLyricsArray.length = newLyricsArray.length - 4;
-    // a title is added specifying the searched song title and artist
-    $(section).append(`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`)
-    // appends each line of the lyrics to given section from the html
-    for (line in newLyricsArray) {
-        $(section).append(`<p>${newLyricsArray[line]}</p>`);
-    }
-    $(section).css('display', 'block');
-}
-
 // takes the original song lyrics and a silly word frequency value (n). creates new song lyrics with random silly words depending on n value
 songApp.smashLyrics = (lyrics, n) => {
     const individualWords = lyrics.split(' ');
     const sillyLyrics = [];
 
-    // Disables the smash button so that the user does not make multiple calls to the thesaurus api
+    // Disables the smash buttons so that the user does not make multiple calls to the thesaurus api
     $('.smashButton').attr('disabled', 'disabled');
-    
+
     // makes an api call to get a response for the async function
     const getWordResponse = (word) => {
         return $.ajax({
@@ -122,10 +106,10 @@ songApp.smashLyrics = (lyrics, n) => {
                 // if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
                 sillyLyrics.push(individualWords[i]);
                 // then send the next word to the ajax call and store the responsee
-                const response = await getWordResponse(individualWords[i+1]);
+                const response = await getWordResponse(individualWords[i + 1]);
                 // check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
                 if (response[0] === undefined) {
-                    sillyLyrics.push(individualWords[i+1]);
+                    sillyLyrics.push(individualWords[i + 1]);
                 } else {
                     // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
                     sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)] : response[getRandomNumber(response.length)]);
@@ -142,6 +126,21 @@ songApp.smashLyrics = (lyrics, n) => {
     }
     createNewSong();
 };
+
+// Appends the song lyrics to a given section
+songApp.printLyrics = (section, lyrics) => {
+    // splits lyrics string by new lines
+    let newLyricsArray = lyrics.split('\n');
+    // removes the ugly added content from musixmatch
+    newLyricsArray.length = newLyricsArray.length - 4;
+    // a title is added specifying the searched song title and artist
+    $(section).append(`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`)
+    // appends each line of the lyrics to given section from the html
+    for (line in newLyricsArray) {
+        $(section).append(`<p>${newLyricsArray[line]}</p>`);
+    }
+    $(section).css('display', 'block');
+}
 
 $(document).ready(function () {
     $('.searchInput').on('focus', function () {
@@ -199,4 +198,7 @@ $(document).ready(function () {
 // randomize the words returned from thesaurus api DONE
 // add ternanry statements to shorten checks DONE
 // Add new buttons so there are 3 smash options DONE
-// Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms
+// Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms DONE
+
+// Add a "start over" button to the bottom that resets everything
+// Add images for the different APIS that I used
