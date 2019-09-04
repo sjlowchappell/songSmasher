@@ -196,6 +196,8 @@ form {
     -webkit-transition: top .5s, font-size .5s, left .5s;
     -o-transition: top .5s, font-size .5s, left .5s;
     transition: top .5s, font-size .5s, left .5s; }
+  .searchInputContainer .searchInput {
+    padding-left: 5px; }
   .searchInputContainer .searchInput:hover + .searchLabel, .searchInputContainer .searchInput:focus + .searchLabel, .searchInputContainer .focused {
     font-size: 1.6rem;
     top: -35px;

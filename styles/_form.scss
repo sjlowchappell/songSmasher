@@ -16,6 +16,11 @@ form {
         left: 5px;
         transition: top .5s, font-size .5s, left .5s;
     }
+
+    .searchInput {
+        padding-left: 5px;
+    }
+
     .searchInput:hover + .searchLabel, .searchInput:focus + .searchLabel, .focused {
         font-size: 1.6rem;
         top: -35px;

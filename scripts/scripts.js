@@ -216,4 +216,4 @@ $(document).ready(function () {
 // Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms DONE
 
 // Add a "start over" button to the bottom that resets everything DONE
-// Add images for the different APIS that I used
+// Credit the different APIS that I used DONE
