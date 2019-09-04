@@ -49,9 +49,9 @@ songApp.getLyrics = (musixTrackID) => {
         dataType: "jsonp"
     }).then(res => {
         // Checks to see if there are available lyrics by seeing if the body of the returned info is empty
-        if ($.isEmptyObject(res.message.body)) {
-            // If there are no available lyrics, a message is printed to say that there are no lyrics unavailable
-            $('.originalSong').append(`<p>Sorry, no lyrics for that song currently available</p>`);
+        if ($.isEmptyObject(res.message.body) || res.message.body.lyrics.lyrics_body === "") {
+            // If there are no available lyrics, a message is printed to say that there are no lyrics available
+            $('.originalSong').append(`<p>Sorry, there are no lyrics currently available for that song</p>`).css('display', 'block');
         } else {
             // if there are lyrics, saves the lyrics and prints them on the page after the original song section
             songApp.songLyrics = res.message.body.lyrics.lyrics_body;
