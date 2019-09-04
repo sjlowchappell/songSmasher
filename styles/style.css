@@ -255,6 +255,10 @@ button {
     color: rgba(51, 51, 51, 0.5);
     background: rgba(216, 241, 227, 0.5); }
 
+.reset {
+  display: none;
+  margin: 30px auto 80px auto; }
+
 @media (max-width: 700px) {
   .buttons {
     -webkit-box-orient: vertical;
@@ -263,11 +267,16 @@ button {
     flex-direction: column; } }
 
 html {
-  text-align: center; }
+  text-align: center;
+  scroll-behavior: smooth; }
 
 body {
   background: #F4F4F4;
   color: #333; }
+
+a {
+  color: #333;
+  text-decoration: none; }
 
 .wrapper {
   max-width: 1080px;

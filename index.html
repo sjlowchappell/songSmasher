@@ -9,7 +9,7 @@
     <title>Song Smasher</title>
 </head>
 <body>
-    <header>
+    <header id="home">
         <div class="wrapper">
             <h1>Song Smasher!</h1>
             <p>Your favorite lyrics...just a little bit off</p>
@@ -29,7 +29,7 @@
                 <button>Submit</button>
             </form>
         
-            <div class='originalSong lyrics'></div>
+            <div id="originalSong" class='originalSong lyrics'></div>
             
             <div class="buttons">
                 <button disabled class='smashButton' name='smallSmash'>gimme a small smash</button>
@@ -37,8 +37,12 @@
                 <button disabled class='smashButton' name='bigSmash'>DESTROY THIS SONG</button>
             </div>
         
-            <div class='smashedSong lyrics'></div>
+            <div id="smashedSong" class='smashedSong lyrics'></div>
         </div>
+
+        <button class="reset">
+            <a href="#home">Start Over</a>
+        </button>
     
     </main>
     <footer>

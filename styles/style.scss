@@ -8,11 +8,17 @@
 
 html {
     text-align: center;
+    scroll-behavior: smooth;
 }
 
 body {
     background: $bodyBackgroundColor;
     color: $bodyFontColor;
+}
+
+a {
+    color: $bodyFontColor;
+    text-decoration: none;
 }
 
 .wrapper {

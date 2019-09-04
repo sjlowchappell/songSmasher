@@ -25,6 +25,11 @@ button {
     margin: 15px;
 }
 
+.reset {
+    display: none;
+    margin: 30px auto 80px auto;
+}
+
 @media (max-width: 700px) {
     .buttons {
         flex-direction: column;

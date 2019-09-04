@@ -123,6 +123,7 @@ songApp.smashLyrics = (lyrics, n) => {
         }
         // sends the new song to print lyrics so that the new lyrics are printed on the page
         songApp.printLyrics('.smashedSong', sillyLyrics.join(' '));
+        $('.reset').css('display', 'block');
     }
     createNewSong();
 };
@@ -165,7 +166,18 @@ $(document).ready(function () {
         } else {
             songApp.smashLyrics(songApp.songLyrics, 2);
         }
-    })
+    });
+    
+    $('.reset').on('click', function (e) {
+        $('.originalSong').empty().css('display', 'none');
+        $('.smashedSong').empty().css('display', 'none');
+        songApp.songName = '';
+        songApp.artistName = '';
+        $('#songName').val('');
+        $('#artistName').val('');
+        $(this).css('display', 'none');
+        console.log(this);
+    });
 });
 
 
@@ -200,5 +212,5 @@ $(document).ready(function () {
 // Add new buttons so there are 3 smash options DONE
 // Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms DONE
 
-// Add a "start over" button to the bottom that resets everything
+// Add a "start over" button to the bottom that resets everything DONE
 // Add images for the different APIS that I used
