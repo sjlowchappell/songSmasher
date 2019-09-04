@@ -4,6 +4,7 @@
 @import './header';
 @import './form';
 @import './songLyrics';
+@import './buttons';
 
 html {
     text-align: center;
@@ -12,31 +13,6 @@ html {
 body {
     background: $bodyBackgroundColor;
     color: $bodyFontColor;
-}
-
-.buttons {
-    padding: 50px 0px;
-    display: flex;
-    justify-content: space-around;
-    width: 70%;
-    margin: 0 auto;
-    .smashButton {
-        flex: 0 0 auto;
-    }
-}
-
-button {
-    padding: 10px;
-    background: darken($subtleAccent, 30);
-    color: $bodyFontColor;
-    border-radius: 10px;
-    &:hover {
-        background: darken($subtleAccent, 40);
-    }
-    &:disabled {
-        color: rgba($bodyFontColor, .5);
-        background: rgba($subtleAccent, .5);
-    }
 }
 
 .wrapper {

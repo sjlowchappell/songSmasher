@@ -112,7 +112,6 @@ songApp.smashLyrics = (lyrics, n) => {
                 const response = await getWordResponse(individualWords[i]);
                 // check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
                 if (response[0] === undefined) {
-                    console.log('found a word with no response options in thesaurus: ' + individualWords[i]);
                     sillyLyrics.push(individualWords[i]);
                 } else {
                     // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
@@ -125,7 +124,6 @@ songApp.smashLyrics = (lyrics, n) => {
                 const response = await getWordResponse(individualWords[i+1]);
                 // check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
                 if (response[0] === undefined) {
-                    console.log('found a word with no response options in thesaurus: ' + individualWords[i+1]);
                     sillyLyrics.push(individualWords[i+1]);
                 } else {
                     // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
@@ -145,6 +143,10 @@ songApp.smashLyrics = (lyrics, n) => {
 };
 
 $(document).ready(function () {
+    $('.searchInput').on('focus', function () {
+        $(this).next().addClass('focused');
+    });
+
     $('form').on('submit', function (e) {
         e.preventDefault();
         $('.originalSong').empty();

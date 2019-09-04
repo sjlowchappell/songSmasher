@@ -170,6 +170,42 @@ header {
   color: #2c3e50;
   padding: 10vh 0; }
 
+form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.searchInputContainer {
+  position: relative;
+  display: inline-block;
+  margin: 15px; }
+  .searchInputContainer .searchLabel {
+    position: absolute;
+    top: 0px;
+    left: 5px;
+    -webkit-transition: top .5s, font-size .5s, left .5s;
+    -o-transition: top .5s, font-size .5s, left .5s;
+    transition: top .5s, font-size .5s, left .5s; }
+  .searchInputContainer .searchInput:hover + .searchLabel, .searchInputContainer .searchInput:focus + .searchLabel, .searchInputContainer .focused {
+    font-size: 1.6rem;
+    top: -35px;
+    left: 0px; }
+
+@media (max-width: 600px) {
+  form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  .searchInputContainer {
+    margin: 25px; } }
+
 .lyrics {
   background: #d8f1e3;
   padding: 35px 15%;
@@ -190,13 +226,6 @@ header {
 .title {
   color: #35955f; }
 
-html {
-  text-align: center; }
-
-body {
-  background: #F4F4F4;
-  color: #333; }
-
 .buttons {
   padding: 50px 0px;
   display: -webkit-box;
@@ -204,6 +233,9 @@ body {
   display: flex;
   -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   width: 70%;
   margin: 0 auto; }
   .buttons .smashButton {
@@ -215,12 +247,27 @@ button {
   padding: 10px;
   background: #67c992;
   color: #333;
-  border-radius: 10px; }
+  border-radius: 10px;
+  margin: 15px; }
   button:hover {
     background: #43ba77; }
   button:disabled {
     color: rgba(51, 51, 51, 0.5);
     background: rgba(216, 241, 227, 0.5); }
+
+@media (max-width: 700px) {
+  .buttons {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column; } }
+
+html {
+  text-align: center; }
+
+body {
+  background: #F4F4F4;
+  color: #333; }
 
 .wrapper {
   max-width: 1080px;

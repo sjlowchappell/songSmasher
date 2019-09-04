@@ -1,0 +1,33 @@
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.searchInputContainer {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+
+    .searchLabel {
+        position: absolute;
+        top: 0px;
+        left: 5px;
+        transition: top .5s, font-size .5s, left .5s;
+    }
+    .searchInput:hover + .searchLabel, .searchInput:focus + .searchLabel, .focused {
+        font-size: 1.6rem;
+        top: -35px;
+        left: 0px;
+    }
+}
+
+@media (max-width: 600px) {
+    form {
+        flex-direction: column;
+    }
+    .searchInputContainer {
+        margin: 25px;
+    }
+}
