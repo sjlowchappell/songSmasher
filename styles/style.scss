@@ -5,6 +5,7 @@
 @import './form';
 @import './songLyrics';
 @import './buttons';
+@import './footer';
 
 html {
     text-align: center;
@@ -19,6 +20,10 @@ body {
 a {
     color: $bodyFontColor;
     text-decoration: none;
+}
+
+img {
+    max-width: 100%;
 }
 
 .wrapper {

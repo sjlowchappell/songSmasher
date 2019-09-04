@@ -1,0 +1,26 @@
+footer {
+    background: $bodyFontColor;
+    color: $bodyBackgroundColor;
+    .logos {
+        display: flex;
+        // flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 40%;
+        margin: 0 auto;
+    }
+    .logo {
+        margin: 15px;
+    }
+    .mw {
+        max-width: 140px;
+    }
+}
+
+@media (max-width: 700px) {
+    footer {
+        .logos {
+            width: 70%;
+        }
+    }
+}

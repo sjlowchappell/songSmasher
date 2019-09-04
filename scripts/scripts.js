@@ -7,6 +7,7 @@ songApp.songName = '';
 songApp.artistName = '';
 songApp.songLyrics = '';
 songApp.smashedLyrics = '';
+songApp.copyright = '';
 
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) => {
@@ -54,6 +55,7 @@ songApp.getLyrics = (musixTrackID) => {
             $('.originalSong').append(`<p>Sorry, there are no lyrics currently available for that song</p>`).css('display', 'block');
         } else {
             // if there are lyrics, saves the lyrics and prints them on the page after the original song section
+            songApp.copyright = res.message.body.lyrics.lyrics_copyright;
             songApp.songLyrics = res.message.body.lyrics.lyrics_body;
             songApp.printLyrics('.originalSong', songApp.songLyrics);
             // After the song has been printed, enables the smash button
@@ -140,6 +142,7 @@ songApp.printLyrics = (section, lyrics) => {
     for (line in newLyricsArray) {
         $(section).append(`<p>${newLyricsArray[line]}</p>`);
     }
+    $(section).append(`<h4>${songApp.copyright}</h4>`);
     $(section).css('display', 'block');
 }
 
