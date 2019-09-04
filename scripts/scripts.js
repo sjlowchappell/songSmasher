@@ -175,8 +175,8 @@ $(document).ready(function () {
         songApp.artistName = '';
         $('#songName').val('');
         $('#artistName').val('');
+        $('.searchInputContainer label').removeClass('focused');
         $(this).css('display', 'none');
-        console.log(this);
     });
 });
 
