@@ -102,7 +102,7 @@ songApp.smashLyrics = (lyrics, n) => {
                     sillyLyrics.push(individualWords[i]);
                 } else {
                     // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
-                    sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)] : response[getRandomNumber(response.length)]);
+                    sillyLyrics.push(response[0].hasOwnProperty('meta') ? `<span class="sillyWord">${response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)]}</span>` : `<span class="sillyWord">${response[getRandomNumber(response.length)]}</span>`);
                 }
             } else if ((i % n == 0) && individualWords[i].includes('\n')) {
                 // if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
@@ -114,7 +114,7 @@ songApp.smashLyrics = (lyrics, n) => {
                     sillyLyrics.push(individualWords[i + 1]);
                 } else {
                     // checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
-                    sillyLyrics.push(response[0].hasOwnProperty('meta') ? response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)] : response[getRandomNumber(response.length)]);
+                    sillyLyrics.push(response[0].hasOwnProperty('meta') ? `<span class="sillyWord">${response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)]}</span>` : `<span class="sillyWord">${response[getRandomNumber(response.length)]}</span>`);
                     // iterates an extra i so that no duplicate words are added to the array
                 }
                 i++;
@@ -125,6 +125,7 @@ songApp.smashLyrics = (lyrics, n) => {
         }
         // sends the new song to print lyrics so that the new lyrics are printed on the page
         songApp.printLyrics('.smashedSong', sillyLyrics.join(' '));
+        $('.highlight').css('display', 'block');
         $('.reset').css('display', 'block');
     }
     createNewSong();
@@ -174,6 +175,10 @@ $(document).ready(function () {
             songApp.smashLyrics(songApp.songLyrics, 2);
         }
     });
+
+    $('.highlight').on('click', function (e) {
+        $('.sillyWord').css({ 'color': '#49955F', 'font-weight': "bold", 'border-bottom': '2px solid #49955F'});
+    });
     
     $('.reset').on('click', function (e) {
         $('.originalSong').empty().css('display', 'none');
@@ -183,6 +188,7 @@ $(document).ready(function () {
         $('#songName').val('');
         $('#artistName').val('');
         $('.searchInputContainer label').removeClass('focused');
+        $('.highlight').css('display', 'none');
         $(this).css('display', 'none');
     });
 });
@@ -221,3 +227,5 @@ $(document).ready(function () {
 
 // Add a "start over" button to the bottom that resets everything DONE
 // Credit the different APIS that I used DONE
+
+// Add a "highlight lyrics" button
