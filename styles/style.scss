@@ -8,31 +8,32 @@
 @import './footer';
 
 html {
-    text-align: center;
-    scroll-behavior: smooth;
+	text-align: center;
+	scroll-behavior: smooth;
 }
 
 body {
-    background: $bodyBackgroundColor;
-    color: $bodyFontColor;
+	background: $bodyBackgroundColor;
+	color: $bodyFontColor;
 }
 
 a {
-    color: $bodyFontColor;
-    text-decoration: none;
+	color: $bodyFontColor;
+	text-decoration: none;
 }
 
 img {
-    max-width: 100%;
+	max-width: 100%;
 }
 
 .wrapper {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 0px 15px;
+	max-width: 1080px;
+	margin: 0 auto;
+	padding: 0px 15px;
 }
 
-.originalSong, .smashedSong {
-    text-align: left;
-    display: none;
+.originalSong,
+.smashedSong {
+	text-align: left;
+	display: none;
 }

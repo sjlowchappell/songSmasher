@@ -1,37 +1,40 @@
 html {
-  font-size: 62.5%;
+	font-size: 62.5%;
 }
 
 body {
-  font-size: 2rem;
-  font-family: $primaryFont;
-  line-height: 1.8;
+	font-size: 2rem;
+	font-family: $primaryFont;
+	line-height: 1.8;
 }
 
-h1, h2, h3 {
-  font-family: $headingFont;
-  color: $boldAccent;
-  letter-spacing: .3rem;
+h1,
+h2,
+h3 {
+	font-family: $headingFont;
+	color: $boldAccent;
+	letter-spacing: 0.3rem;
 }
 
 h1 {
-  font-size: 8rem;
-  margin: 0;
-  padding: 0;
+	font-size: 8rem;
+	margin: 0;
+	padding: 0;
 }
 
 h4 {
-  font-size: 1.2rem;
-  margin-top: 60px;
+	font-size: 1.2rem;
+	margin-top: 60px;
 }
 
-p, label, button {
-  font-size: 2rem;
+p,
+label,
+button {
+	font-size: 2rem;
 }
 
 @media (max-width: 450px) {
-  h1 {
-    font-size: 6rem;
-  }
+	h1 {
+		font-size: 6rem;
+	}
 }
-

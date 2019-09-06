@@ -1,33 +1,33 @@
 footer {
-    background: $bodyFontColor;
-    color: $bodyBackgroundColor;
-    padding: 15px 0px;
-    .logos {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 50%;
-        margin: 0 auto;
-    }
-    .logo {
-        margin: 15px;
-    }
-    .mw {
-        max-width: 140px;
-    }
+	background: $bodyFontColor;
+	color: $bodyBackgroundColor;
+	padding: 15px 0px;
+	.logos {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		width: 50%;
+		margin: 0 auto;
+	}
+	.logo {
+		margin: 15px;
+	}
+	.mw {
+		max-width: 140px;
+	}
 }
 
 @media (max-width: 800px) {
-    footer {
-        .logos {
-            width: 70%;
-        }
-    }
+	footer {
+		.logos {
+			width: 70%;
+		}
+	}
 }
 @media (max-width: 450px) {
-    footer {
-        .logos {
-            flex-direction: column;
-        }
-    }
+	footer {
+		.logos {
+			flex-direction: column;
+		}
+	}
 }
