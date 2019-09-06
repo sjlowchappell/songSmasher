@@ -1,65 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles/style.css">
-    <title>Song Smasher</title>
-</head>
-<body>
-    <header id="home">
-        <div class="wrapper">
-            <h1>Song Smasher!</h1>
-            <p>Your favorite lyrics...just a little bit off</p>
-        </div>
-    </header>
-    <main>
-        <div class="wrapper">
-            <form action="">
-                <div class="searchInputContainer">
-                    <input class="searchInput" type="text" id="songName" required autocomplete="off">
-                    <label class="searchLabel" for="songName">Song Name:</label>
-                </div>
-                <div class="searchInputContainer">
-                    <input class="searchInput" type="text" id="artistName" required autocomplete="off">    
-                    <label class="searchLabel" for="artistName">Artist Name:</label>
-                </div>
-                <button>Submit</button>
-            </form>
-        
-            <div id="originalSong" class='originalSong lyrics'></div>
-            
-            <div class="buttons">
-                <button disabled class='smashButton' name='smallSmash'>gimme a small smash</button>
-                <button disabled class='smashButton' name='normalSmash'>Smash this Song</button>
-                <button disabled class='smashButton' name='bigSmash'>DESTROY THIS SONG</button>
-            </div>
-        
-            <div id="smashedSong" class='smashedSong lyrics'>
-            </div>
-            <button class="highlight">Highlight the Silly Words</button>
-            
-            
-        </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link
+			href="https://fonts.googleapis.com/css?family=Alfa+Slab+One|Open+Sans&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./styles/style.css" />
+		<title>Song Smasher</title>
+	</head>
+	<body>
+		<header id="home">
+			<div class="wrapper">
+				<h1>Song Smasher!</h1>
+				<p>Your favorite lyrics...just a little bit off</p>
+			</div>
+		</header>
+		<main>
+			<div class="wrapper">
+				<form action="">
+					<div class="searchInputContainer">
+						<input
+							class="searchInput"
+							type="text"
+							id="songName"
+							required
+							autocomplete="off"
+						/>
+						<label class="searchLabel" for="songName"
+							>Enter Song Name:</label
+						>
+					</div>
+					<div class="searchInputContainer">
+						<input
+							class="searchInput"
+							type="text"
+							id="artistName"
+							required
+							autocomplete="off"
+						/>
+						<label class="searchLabel" for="artistName"
+							>Enter Artist Name:</label
+						>
+					</div>
+					<button>Submit</button>
+				</form>
 
-        <button class="reset">
-            <a href="#home">Start Over</a>
-        </button>
-    
-    </main>
-    <footer>
-        <div class="wrapper">
-            <p>&copy; Sam Low-Chappell 2019</p>
-            <div class="logos">
-                <a class="logo" href="http://www.musixmatch.com"><img src="./assets/musixMatchLogo.png" alt="The Musixmatch Logo"></a>
-                <a class="logo mw" href="https://www.merriam-webster.com"><img src="./assets/merriamWebsterLogo.png" alt="The Merriam-Webster Logo"></a>
-            </div>
-        </div>
-    </footer>
+				<div id="originalSong" class="originalSong lyrics"></div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="scripts/scripts.js"></script>
-</body>
+				<div class="buttons">
+					<button disabled class="smashButton" name="smallSmash">
+						gimme a small smash
+					</button>
+					<button disabled class="smashButton" name="normalSmash">
+						Smash this Song
+					</button>
+					<button disabled class="smashButton" name="bigSmash">
+						DESTROY THIS SONG
+					</button>
+				</div>
+
+				<div id="smashedSong" class="smashedSong lyrics"></div>
+
+				<button class="highlight">Highlight the Silly Words</button>
+			</div>
+
+			<button class="reset">
+				<a href="#home">Start Over</a>
+			</button>
+		</main>
+		<footer>
+			<div class="wrapper">
+				<p>&copy; Sam Low-Chappell 2019</p>
+				<div class="logos">
+					<a class="logo" href="http://www.musixmatch.com"
+						><img
+							src="./assets/musixMatchLogo.png"
+							alt="The Musixmatch Logo"
+					/></a>
+					<a class="logo mw" href="https://www.merriam-webster.com"
+						><img
+							src="./assets/merriamWebsterLogo.png"
+							alt="The Merriam-Webster Logo"
+					/></a>
+				</div>
+			</div>
+		</footer>
+
+		<script
+			src="https://code.jquery.com/jquery-3.3.1.min.js"
+			integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			crossorigin="anonymous"
+		></script>
+		<script src="scripts/scripts.js"></script>
+	</body>
 </html>

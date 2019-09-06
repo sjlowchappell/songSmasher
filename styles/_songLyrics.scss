@@ -1,29 +1,32 @@
 .lyrics {
-    background: $subtleAccent;
-    padding: 35px 15%;
-    margin: 40px auto;
-    border-radius: 5px;
-    border-left: 10px solid $boldAccent;
-    h3 {
-        position: relative;
-    }
-    h3::after {
-        position: absolute;
-        top: 40px;
-        left: 0px;
-        content: "";
-        width: 70px;
-        border-bottom: 4px solid $boldAccent;
-        border-bottom: 4px solid darken($subtleAccent, 50);
-    }
+	background: $subtleAccent;
+	padding: 35px 15%;
+	margin: 40px auto;
+	border-radius: 5px;
+	border-left: 10px solid $boldAccent;
+	h3 {
+		position: relative;
+	}
+	h3::after {
+		position: absolute;
+		top: 40px;
+		left: 0px;
+		content: '';
+		width: 70px;
+		border-bottom: 4px solid $boldAccent;
+		border-bottom: 4px solid darken($subtleAccent, 50);
+	}
 }
 
 .title {
-    color: darken($subtleAccent, 50);
+	color: darken($subtleAccent, 50);
+}
+
+.sillyLyrics {
 }
 
 @media (max-width: 450px) {
-    .lyrics {
-        padding: 35px 5%;
-    }
+	.lyrics {
+		padding: 35px 5%;
+	}
 }
