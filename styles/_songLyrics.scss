@@ -22,7 +22,10 @@
 	color: darken($subtleAccent, 50);
 }
 
-.sillyLyrics {
+.highlightStyling {
+	color: #49955f;
+	font-weight: bold;
+	border-bottom: 2px solid #49955f;
 }
 
 @media (max-width: 450px) {

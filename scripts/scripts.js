@@ -198,11 +198,7 @@ $(document).ready(function() {
 	});
 
 	$('.highlight').on('click', function(e) {
-		$('.sillyWord').css({
-			color: '#49955F',
-			'font-weight': 'bold',
-			'border-bottom': '2px solid #49955F',
-		});
+		$('.sillyWord').toggleClass('highlightStyling');
 	});
 
 	$('.reset').on('click', function(e) {
