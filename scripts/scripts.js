@@ -175,25 +175,33 @@ $(document).ready(function() {
 	const form = document.querySelector('form');
 	const lyricsSections = document.querySelectorAll('.lyrics');
 	const smashButtons = document.querySelectorAll('.smashButton');
+	const highlightButton = document.querySelector('.highlight');
+	const resetButton = document.querySelector('.reset');
+
+	const clearSongs = () => {
+		lyricsSections.forEach(lyricsSection => {
+			[...lyricsSection.childNodes].forEach(child => child.remove());
+			lyricsSection.style.display = 'none';
+		});
+	};
 
 	searchInputs.forEach(searchInput => {
-		// when an input is focused, move the label above the input with the focus class
-		searchInput.addEventListener('focus', function() {
-			this.parentNode.children[1].classList.add('focused');
+		// when an input is blurred, move the label above the input with the focused class
+		searchInput.addEventListener('blur', function() {
+			const label = this.parentNode.children[1].classList;
+			this.value.trim() !== '' ? label.add('focused') : label.remove('focused');
 		});
 	});
 
 	form.addEventListener('submit', e => {
 		e.preventDefault();
 		// clear out existing lyrics
-		lyricsSections.forEach(lyricsSection => [...lyricsSection.childNodes].forEach(child => child.remove()));
+		clearSongs();
 		// save song name and artist name
 		songApp.songName = searchInputs[0].value;
 		songApp.artistName = searchInputs[1].value;
 		// search API
 		songApp.searchSong(songApp.songName, songApp.artistName);
-		// clear out search inputs
-		searchInputs.forEach(searchInput => (searchInput.value = ''));
 	});
 
 	smashButtons.forEach(smashButton => {
@@ -205,24 +213,22 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.highlight').on('click', function(e) {
-		$('.sillyWord').toggleClass('highlightStyling');
+	highlightButton.addEventListener('click', () => {
+		// get all the silly words
+		const sillyWords = document.querySelectorAll('.sillyWord');
+		// toggle styling
+		sillyWords.forEach(sillyWord => sillyWord.classList.toggle('highlightStyling'));
 	});
 
-	$('.reset').on('click', function(e) {
-		$('.originalSong')
-			.empty()
-			.css('display', 'none');
-		$('.smashedSong')
-			.empty()
-			.css('display', 'none');
+	resetButton.addEventListener('click', function(e) {
+		// clear song lyrics, song and artist names, and inputs
+		clearSongs();
 		songApp.songName = '';
 		songApp.artistName = '';
-		$('#songName').val('');
-		$('#artistName').val('');
-		$('.searchInputContainer label').removeClass('focused');
-		$('.highlight').css('display', 'none');
-		$(this).css('display', 'none');
+		searchInputs.forEach(searchInput => (searchInput.value = ''));
+		// hide buttons
+		highlightButton.style.display = 'none';
+		this.style.display = 'none';
 	});
 
 	// Old Jquery code:
@@ -244,6 +250,24 @@ $(document).ready(function() {
 	// 	} else {
 	// 		songApp.smashLyrics(songApp.songLyrics, 2);
 	// 	}
+	// });
+	// $('.highlight').on('click', function(e) {
+	// 	$('.sillyWord').toggleClass('highlightStyling');
+	// });
+	// $('.reset').on('click', function(e) {
+	// 	$('.originalSong')
+	// 		.empty()
+	// 		.css('display', 'none');
+	// 	$('.smashedSong')
+	// 		.empty()
+	// 		.css('display', 'none');
+	// 	songApp.songName = '';
+	// 	songApp.artistName = '';
+	// 	$('#songName').val('');
+	// 	$('#artistName').val('');
+	// 	$('.searchInputContainer label').removeClass('focused');
+	// 	$('.highlight').css('display', 'none');
+	// 	$(this).css('display', 'none');
 	// });
 });
 
