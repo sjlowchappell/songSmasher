@@ -9,6 +9,18 @@ songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 songApp.copyright = '';
 songApp.lyricsSections = document.querySelectorAll('.lyrics');
+songApp.highlightButton = document.querySelector('.highlight');
+songApp.resetButton = document.querySelector('.reset');
+
+songApp.showButtons = () => {
+	songApp.highlightButton.style.display = 'block';
+	songApp.resetButton.style.display = 'block';
+};
+
+songApp.hideButtons = () => {
+	songApp.highlightButton.style.display = 'none';
+	songApp.resetButton.style.display = 'none';
+};
 
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) => {
@@ -141,8 +153,8 @@ songApp.smashLyrics = (lyrics, n) => {
 		}
 		// sends the new song to print lyrics so that the new lyrics are printed on the page
 		songApp.printLyrics(songApp.lyricsSections[1], sillyLyrics.join(' '));
-		$('.highlight').css('display', 'block');
-		$('.reset').css('display', 'block');
+		// sets the highlight and reset buttons to display: block
+		songApp.showButtons();
 	}
 	createNewSong();
 };
@@ -151,6 +163,7 @@ songApp.smashLyrics = (lyrics, n) => {
 songApp.printLyrics = (section, lyrics) => {
 	// splits lyrics string by new lines
 	let newLyricsArray = lyrics.split('\n');
+
 	// removes the ugly added content from musixmatch
 	newLyricsArray.length = newLyricsArray.length - 4;
 
@@ -170,28 +183,12 @@ songApp.printLyrics = (section, lyrics) => {
 
 	// displays the song
 	section.style.display = 'block';
-
-	// OLD JQUERY
-	// if (section === '.originalSong') {
-	// 	$(section).append(
-	// 		`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
-	// 	);
-	// 	$(section).append(
-	// 		`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
-	// 	);
-	// } else {
-	// 	$(section).append(
-	// 		`<h3>Silly Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
-	// 	);
-	// }
 };
 
 $(document).ready(function() {
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
 	const smashButtons = document.querySelectorAll('.smashButton');
-	const highlightButton = document.querySelector('.highlight');
-	const resetButton = document.querySelector('.reset');
 
 	const clearSongs = () => {
 		songApp.lyricsSections.forEach(lyricsSection => {
@@ -230,62 +227,22 @@ $(document).ready(function() {
 		});
 	});
 
-	highlightButton.addEventListener('click', () => {
+	songApp.highlightButton.addEventListener('click', () => {
 		// get all the silly words
 		const sillyWords = document.querySelectorAll('.sillyWord');
 		// toggle styling
 		sillyWords.forEach(sillyWord => sillyWord.classList.toggle('highlightStyling'));
 	});
 
-	resetButton.addEventListener('click', function(e) {
+	songApp.resetButton.addEventListener('click', function(e) {
 		// clear song lyrics, song and artist names, and inputs
 		clearSongs();
 		songApp.songName = '';
 		songApp.artistName = '';
 		searchInputs.forEach(searchInput => (searchInput.value = ''));
-		// hide buttons
-		highlightButton.style.display = 'none';
-		this.style.display = 'none';
+		// sets the highlight and reset buttons to display: none
+		songApp.hideButtons();
 	});
-
-	// Old Jquery code:
-	// $('form').on('submit', function(e) {
-	// 	e.preventDefault();
-	// 	$('.originalSong').empty();
-	// 	$('.smashedSong').empty();
-	// 	songApp.songName = $('#songName').val();
-	// 	songApp.artistName = $('#artistName').val();
-	// 	songApp.searchSong(songApp.songName, songApp.artistName);
-	// });
-
-	// $('.smashButton').on('click', function(e) {
-	// 	const smashType = $(this).attr('name');
-	// 	if (smashType === 'smallSmash') {
-	// 		songApp.smashLyrics(songApp.songLyrics, 12);
-	// 	} else if (smashType === 'normalSmash') {
-	// 		songApp.smashLyrics(songApp.songLyrics, 8);
-	// 	} else {
-	// 		songApp.smashLyrics(songApp.songLyrics, 2);
-	// 	}
-	// });
-	// $('.highlight').on('click', function(e) {
-	// 	$('.sillyWord').toggleClass('highlightStyling');
-	// });
-	// $('.reset').on('click', function(e) {
-	// 	$('.originalSong')
-	// 		.empty()
-	// 		.css('display', 'none');
-	// 	$('.smashedSong')
-	// 		.empty()
-	// 		.css('display', 'none');
-	// 	songApp.songName = '';
-	// 	songApp.artistName = '';
-	// 	$('#songName').val('');
-	// 	$('#artistName').val('');
-	// 	$('.searchInputContainer label').removeClass('focused');
-	// 	$('.highlight').css('display', 'none');
-	// 	$(this).css('display', 'none');
-	// });
 });
 
 // User goes to website
