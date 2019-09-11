@@ -171,20 +171,36 @@ songApp.printLyrics = (section, lyrics) => {
 };
 
 $(document).ready(function() {
-	$('.searchInput').on('focus', function() {
-		$(this)
-			.next()
-			.addClass('focused');
+	const searchInputs = document.querySelectorAll('.searchInput');
+	const form = document.querySelector('form');
+	const lyricsSections = document.querySelectorAll('.lyrics');
+
+	searchInputs.forEach(searchInput => {
+		searchInput.addEventListener('focus', function() {
+			this.parentNode.children[1].classList.add('focused');
+		});
+	});
+	form.addEventListener('submit', e => {
+		e.preventDefault();
+		lyricsSections.forEach(lyricsSection => {
+			[...lyricsSection.childNodes].forEach(child => child.remove());
+		});
+		songApp.songName = searchInputs[0].value;
+		songApp.artistName = searchInputs[1].value;
+		songApp.searchSong(songApp.songName, songApp.artistName);
+		searchInputs.forEach(searchInput => {
+			searchInput.value = '';
+		});
 	});
 
-	$('form').on('submit', function(e) {
-		e.preventDefault();
-		$('.originalSong').empty();
-		$('.smashedSong').empty();
-		songApp.songName = $('#songName').val();
-		songApp.artistName = $('#artistName').val();
-		songApp.searchSong(songApp.songName, songApp.artistName);
-	});
+	// $('form').on('submit', function(e) {
+	// 	e.preventDefault();
+	// 	$('.originalSong').empty();
+	// 	$('.smashedSong').empty();
+	// 	songApp.songName = $('#songName').val();
+	// 	songApp.artistName = $('#artistName').val();
+	// 	songApp.searchSong(songApp.songName, songApp.artistName);
+	// });
 
 	$('.smashButton').on('click', function(e) {
 		const smashType = $(this).attr('name');
