@@ -180,13 +180,15 @@ $(document).ready(function() {
 
 	const clearSongs = () => {
 		lyricsSections.forEach(lyricsSection => {
+			// spread operator puts nodes into an array, then removes each one
 			[...lyricsSection.childNodes].forEach(child => child.remove());
+			// hide the lyrics section
 			lyricsSection.style.display = 'none';
 		});
 	};
 
 	searchInputs.forEach(searchInput => {
-		// when an input is blurred, move the label above the input with the focused class
+		// if there is text in an input after input is blurred, keep label above input. otherwise, label goes over input (visually)
 		searchInput.addEventListener('blur', function() {
 			const label = this.parentNode.children[1].classList;
 			this.value.trim() !== '' ? label.add('focused') : label.remove('focused');
