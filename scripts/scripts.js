@@ -174,43 +174,35 @@ $(document).ready(function() {
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
 	const lyricsSections = document.querySelectorAll('.lyrics');
+	const smashButtons = document.querySelectorAll('.smashButton');
 
 	searchInputs.forEach(searchInput => {
+		// when an input is focused, move the label above the input with the focus class
 		searchInput.addEventListener('focus', function() {
 			this.parentNode.children[1].classList.add('focused');
 		});
 	});
+
 	form.addEventListener('submit', e => {
 		e.preventDefault();
-		lyricsSections.forEach(lyricsSection => {
-			[...lyricsSection.childNodes].forEach(child => child.remove());
-		});
+		// clear out existing lyrics
+		lyricsSections.forEach(lyricsSection => [...lyricsSection.childNodes].forEach(child => child.remove()));
+		// save song name and artist name
 		songApp.songName = searchInputs[0].value;
 		songApp.artistName = searchInputs[1].value;
+		// search API
 		songApp.searchSong(songApp.songName, songApp.artistName);
-		searchInputs.forEach(searchInput => {
-			searchInput.value = '';
-		});
+		// clear out search inputs
+		searchInputs.forEach(searchInput => (searchInput.value = ''));
 	});
 
-	// $('form').on('submit', function(e) {
-	// 	e.preventDefault();
-	// 	$('.originalSong').empty();
-	// 	$('.smashedSong').empty();
-	// 	songApp.songName = $('#songName').val();
-	// 	songApp.artistName = $('#artistName').val();
-	// 	songApp.searchSong(songApp.songName, songApp.artistName);
-	// });
-
-	$('.smashButton').on('click', function(e) {
-		const smashType = $(this).attr('name');
-		if (smashType === 'smallSmash') {
-			songApp.smashLyrics(songApp.songLyrics, 12);
-		} else if (smashType === 'normalSmash') {
-			songApp.smashLyrics(songApp.songLyrics, 8);
-		} else {
-			songApp.smashLyrics(songApp.songLyrics, 2);
-		}
+	smashButtons.forEach(smashButton => {
+		smashButton.addEventListener('click', function() {
+			// get the smash level for each button as an int from html button
+			const level = parseInt(this.dataset.smashlevel);
+			// submit lyrics to smash method
+			songApp.smashLyrics(songApp.songLyrics, level);
+		});
 	});
 
 	$('.highlight').on('click', function(e) {
@@ -232,6 +224,27 @@ $(document).ready(function() {
 		$('.highlight').css('display', 'none');
 		$(this).css('display', 'none');
 	});
+
+	// Old Jquery code:
+	// $('form').on('submit', function(e) {
+	// 	e.preventDefault();
+	// 	$('.originalSong').empty();
+	// 	$('.smashedSong').empty();
+	// 	songApp.songName = $('#songName').val();
+	// 	songApp.artistName = $('#artistName').val();
+	// 	songApp.searchSong(songApp.songName, songApp.artistName);
+	// });
+
+	// $('.smashButton').on('click', function(e) {
+	// 	const smashType = $(this).attr('name');
+	// 	if (smashType === 'smallSmash') {
+	// 		songApp.smashLyrics(songApp.songLyrics, 12);
+	// 	} else if (smashType === 'normalSmash') {
+	// 		songApp.smashLyrics(songApp.songLyrics, 8);
+	// 	} else {
+	// 		songApp.smashLyrics(songApp.songLyrics, 2);
+	// 	}
+	// });
 });
 
 // User goes to website
