@@ -1,4 +1,5 @@
 const songApp = {};
+
 songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
 songApp.thesaurusURL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/';
@@ -11,6 +12,7 @@ songApp.copyright = '';
 songApp.lyricsSections = document.querySelectorAll('.lyrics');
 songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
+songApp.smashButtons = document.querySelectorAll('.smashButton');
 
 songApp.showButtons = () => {
 	songApp.highlightButton.style.display = 'block';
@@ -38,15 +40,20 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 		},
 		dataType: 'jsonp',
 	}).then(res => {
-		// sends the track id to the getLyrics method
-		if (res.message.body.track_list[0] === undefined) {
-			$('.originalSong')
-				.append(`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`)
-				.css('display', 'block');
+		const topTrack = res.message.body.track_list[0];
+		// if there's no top track returned, print error message to screen
+		if (topTrack === undefined) {
+			songApp.lyricsSections[0].insertAdjacentHTML(
+				'beforeend',
+				`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`,
+			);
+			songApp.lyricsSections[0].style.display = 'block';
 		} else {
-			songApp.songName = res.message.body.track_list[0].track.track_name;
-			songApp.artistName = res.message.body.track_list[0].track.artist_name;
-			songApp.getLyrics(res.message.body.track_list[0].track.track_id);
+			// otherwise, update the song name and artist name with official titles from api
+			songApp.songName = topTrack.track.track_name;
+			songApp.artistName = topTrack.track.artist_name;
+			// send track id to get lyrics method
+			songApp.getLyrics(topTrack.track.track_id);
 		}
 	});
 };
@@ -64,19 +71,22 @@ songApp.getLyrics = musixTrackID => {
 		},
 		dataType: 'jsonp',
 	}).then(res => {
+		const resLyrics = res.message.body.lyrics;
 		// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
-		if ($.isEmptyObject(res.message.body) || res.message.body.lyrics.lyrics_body === '') {
-			// If there are no available lyrics, a message is printed to say that there are no lyrics available
-			$('.originalSong')
-				.append(`<p>Sorry, there are no lyrics currently available for that song</p>`)
-				.css('display', 'block');
+		if ($.isEmptyObject(res.message.body) || resLyrics.lyrics_body === '') {
+			// If there are no available lyrics, an error message is printed to say that there are no lyrics available
+			songApp.lyricsSections[0].insertAdjacentHTML(
+				'beforeend',
+				`<p>Sorry, there are no lyrics currently available for that song</p>`,
+			);
+			songApp.lyricsSections[0].style.display = 'block';
 		} else {
 			// if there are lyrics, saves the lyrics and prints them on the page after the original song section
-			songApp.copyright = res.message.body.lyrics.lyrics_copyright;
-			songApp.songLyrics = res.message.body.lyrics.lyrics_body;
+			songApp.copyright = resLyrics.lyrics_copyright;
+			songApp.songLyrics = resLyrics.lyrics_body;
 			songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
 			// After the song has been printed, enables the smash button
-			$('.smashButton').removeAttr('disabled');
+			songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
 		}
 	});
 };
@@ -87,7 +97,7 @@ songApp.smashLyrics = (lyrics, n) => {
 	const sillyLyrics = [];
 
 	// Disables the smash buttons so that the user does not make multiple calls to the thesaurus api
-	$('.smashButton').attr('disabled', 'disabled');
+	songApp.smashButtons.forEach(smashButton => smashButton.setAttribute('disabled', 'disabled'));
 
 	// makes an api call to get a response for the async function
 	const getWordResponse = word => {
@@ -188,7 +198,6 @@ songApp.printLyrics = (section, lyrics) => {
 $(document).ready(function() {
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
-	const smashButtons = document.querySelectorAll('.smashButton');
 
 	const clearSongs = () => {
 		songApp.lyricsSections.forEach(lyricsSection => {
@@ -218,7 +227,7 @@ $(document).ready(function() {
 		songApp.searchSong(songApp.songName, songApp.artistName);
 	});
 
-	smashButtons.forEach(smashButton => {
+	songApp.smashButtons.forEach(smashButton => {
 		smashButton.addEventListener('click', function() {
 			// get the smash level for each button as an int from html button
 			const level = parseInt(this.dataset.smashlevel);
@@ -245,37 +254,9 @@ $(document).ready(function() {
 	});
 });
 
-// User goes to website
-// User inputs a song name in search bar DONE
-// App saves user input in a variable DONE
-// App makes api call to musixmatch with song name -> track.search DONE
-// Api call returns song id DONE
-
-// App makes api call to musixmatch with song id -> track.lyrics.get DONE
-// Api call returns song lyrics DONE
-// Song lyrics saved in a string DONE
-// Parse string by white space and save lyrics into an array word by word -> use the split method DONE
-// App prints song lyrics string to the page DONE
-
-// User clicks "Smash this song" button DONE
-
-// iterate through original song lyrics DONE
-// Look up synonym for words based on n frequency of weird words DONE
-// Save synonyms for in a new array DONE
-// Save normal words in new array DONE
-// concatanate array with white spaces DONE
-// print silly lyrics to page DONE
-
-// TO DO:
-// enable and disable the "smash this song button" based on what's on the page so far DONE
-// Need to find a way to return the correct song rather than a weird cover version in initial request DONE
-// review thesaurus api to ensure I am making calls correctly for individual words
-// randomize the words returned from thesaurus api DONE
-// add ternanry statements to shorten checks DONE
-// Add new buttons so there are 3 smash options DONE
-// Check to make sure app doesn't break if there is no song provided, no lyrics provided, or if there are issues getting synonyms DONE
-
-// Add a "start over" button to the bottom that resets everything DONE
-// Credit the different APIS that I used DONE
-
-// Add a "highlight lyrics" button
+// To do:
+// 1) Swap Ajax request in search song to fetch
+// 2) Swap Ajax request in get lyrics to fetch
+// 3) Swap Ajax request in get word response to fetch
+// 4) Create an isEmpty function for get lyrics and replace jquery function
+// 5) Replace document.ready()
