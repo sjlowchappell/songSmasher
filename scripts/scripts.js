@@ -8,6 +8,7 @@ songApp.artistName = '';
 songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 songApp.copyright = '';
+songApp.lyricsSections = document.querySelectorAll('.lyrics');
 
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) => {
@@ -61,7 +62,7 @@ songApp.getLyrics = musixTrackID => {
 			// if there are lyrics, saves the lyrics and prints them on the page after the original song section
 			songApp.copyright = res.message.body.lyrics.lyrics_copyright;
 			songApp.songLyrics = res.message.body.lyrics.lyrics_body;
-			songApp.printLyrics('.originalSong', songApp.songLyrics);
+			songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
 			// After the song has been printed, enables the smash button
 			$('.smashButton').removeAttr('disabled');
 		}
@@ -139,7 +140,7 @@ songApp.smashLyrics = (lyrics, n) => {
 			}
 		}
 		// sends the new song to print lyrics so that the new lyrics are printed on the page
-		songApp.printLyrics('.smashedSong', sillyLyrics.join(' '));
+		songApp.printLyrics(songApp.lyricsSections[1], sillyLyrics.join(' '));
 		$('.highlight').css('display', 'block');
 		$('.reset').css('display', 'block');
 	}
@@ -152,34 +153,48 @@ songApp.printLyrics = (section, lyrics) => {
 	let newLyricsArray = lyrics.split('\n');
 	// removes the ugly added content from musixmatch
 	newLyricsArray.length = newLyricsArray.length - 4;
+
 	// a title is added specifying the searched song title and artist
-	if (section === '.originalSong') {
-		$(section).append(
-			`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
-		);
-	} else {
-		$(section).append(
-			`<h3>Silly Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
-		);
-	}
+	section.insertAdjacentHTML(
+		'beforeend',
+		`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
+	);
+
 	// appends each line of the lyrics to given section from the html
 	for (line in newLyricsArray) {
-		$(section).append(`<p>${newLyricsArray[line]}</p>`);
+		section.insertAdjacentHTML('beforeend', `<p>${newLyricsArray[line]}</p>`);
 	}
-	$(section).append(`<h4>${songApp.copyright}</h4>`);
-	$(section).css('display', 'block');
+
+	// appends copyright (required by API) at end
+	section.insertAdjacentHTML('beforeend', `<h4>${songApp.copyright}</h4>`);
+
+	// displays the song
+	section.style.display = 'block';
+
+	// OLD JQUERY
+	// if (section === '.originalSong') {
+	// 	$(section).append(
+	// 		`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
+	// 	);
+	// 	$(section).append(
+	// 		`<h3>Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
+	// 	);
+	// } else {
+	// 	$(section).append(
+	// 		`<h3>Silly Lyrics for <span class='title'>${songApp.songName}</span> by <span class='title'>${songApp.artistName}</span>`,
+	// 	);
+	// }
 };
 
 $(document).ready(function() {
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
-	const lyricsSections = document.querySelectorAll('.lyrics');
 	const smashButtons = document.querySelectorAll('.smashButton');
 	const highlightButton = document.querySelector('.highlight');
 	const resetButton = document.querySelector('.reset');
 
 	const clearSongs = () => {
-		lyricsSections.forEach(lyricsSection => {
+		songApp.lyricsSections.forEach(lyricsSection => {
 			// spread operator puts nodes into an array, then removes each one
 			[...lyricsSection.childNodes].forEach(child => child.remove());
 			// hide the lyrics section
