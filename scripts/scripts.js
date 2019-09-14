@@ -186,7 +186,6 @@ songApp.printLyrics = (section, lyrics) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('ready!');
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
 
