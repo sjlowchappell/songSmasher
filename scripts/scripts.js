@@ -26,15 +26,16 @@ songApp.hideButtons = () => {
 
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) => {
-	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful. This works!
+	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful.
 
-	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26q_track=${userInputSong}%26q_artist=${userInputArtist}%26s_track_rating=desc`;
+	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
 
 	fetch(url)
 		.then(res => {
 			return res.json();
 		})
 		.then(res => {
+			console.log(res);
 			const topTrack = res.message.body.track_list[0];
 			// if there's no top track returned, print error message to screen
 			if (topTrack === undefined) {
@@ -94,12 +95,9 @@ songApp.smashLyrics = (lyrics, n) => {
 
 	// makes an api call to get a response for the async function
 	const getWordResponse = word => {
-		return $.ajax({
-			url: `${songApp.thesaurusURL}${word}`,
-			type: 'GET',
-			data: {
-				key: songApp.thesaurusApiKey,
-			},
+		const newurl = `${songApp.thesaurusURL}${word}?key=${songApp.thesaurusApiKey}`;
+		return fetch(newurl).then(res => {
+			return res.json();
 		});
 	};
 
@@ -250,7 +248,7 @@ $(document).ready(function() {
 // To do:
 // 1) Swap Ajax request in search song to fetch DONE
 // 2) Swap Ajax request in get lyrics to fetch DONE
-// 3) Swap Ajax request in get word response to fetch
+// 3) Swap Ajax request in get word response to fetch DONE
 // 4) Create an isEmpty function for get lyrics and replace jquery function DONE
 // 5) Replace document.ready()
 
@@ -353,4 +351,13 @@ $(document).ready(function() {
 // 		// After the song has been printed, enables the smash button
 // 		songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
 // 	}
+// });
+
+// smash song api request
+// return $.ajax({
+// 	url: `${songApp.thesaurusURL}${word}`,
+// 	type: 'GET',
+// 	data: {
+// 		key: songApp.thesaurusApiKey,
+// 	},
 // });
