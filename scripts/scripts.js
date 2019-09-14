@@ -35,7 +35,6 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 			return res.json();
 		})
 		.then(res => {
-			console.log(res);
 			const topTrack = res.message.body.track_list[0];
 			// if there's no top track returned, print error message to screen
 			if (topTrack === undefined) {
@@ -186,7 +185,8 @@ songApp.printLyrics = (section, lyrics) => {
 	section.style.display = 'block';
 };
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', () => {
+	console.log('ready!');
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
 
@@ -244,120 +244,3 @@ $(document).ready(function() {
 		songApp.hideButtons();
 	});
 });
-
-// To do:
-// 1) Swap Ajax request in search song to fetch DONE
-// 2) Swap Ajax request in get lyrics to fetch DONE
-// 3) Swap Ajax request in get word response to fetch DONE
-// 4) Create an isEmpty function for get lyrics and replace jquery function DONE
-// 5) Replace document.ready()
-
-// Old Jquery code for ajax requests -> a bit of a mess figuring this all out! first is to get song, second to get lyrics
-
-// const oldURL =
-// 	'http://proxy.hackeryou.com/?reqUrl=http%3A%2F%2Fapi.musixmatch.com%2Fws%2F1.1%2Ftrack.search%3Fapikey%3D5bd428e80ba2d105deb6caa361ace5d6%26q_track%3Dstill%20beating%26q_artist%3Dmac%20demarco%26page_size%3D1%26s_track_rating%3Ddesc&xmlToJSON=false&useCache=false';
-
-// const songPromise = fetch(oldURL);
-// songPromise
-// 	.then(res => {
-// 		return res.json();
-// 	})
-// 	.then(response => console.log(response));
-
-// console.log(oldURL);
-// console.log(url);
-// const newPromise = $.ajax({
-// 	url: 'http://proxy.hackeryou.com',
-// 	dataType: 'json',
-// 	method: 'GET',
-// 	data: {
-// 		reqUrl: url,
-// 		xmlToJSON: false,
-// 		useCache: false,
-// 	},
-// });
-// newPromise.then(
-// 	value => {
-// 		console.log(value); // Success!
-// 	},
-// 	reason => {
-// 		console.error(`there was an error: ${reason}`); // Error!
-// 	},
-// );
-// console.log(newPromise);
-// .then(res => {
-// 	console.log('in the response!');
-// 	const topTrack = res.message.body.track_list[0];
-// 	console.log(topTrack);
-// });
-
-// Ajax request
-// $.ajax({
-// 	url: `${songApp.musicURL}track.search`,
-// 	type: 'GET',
-// 	data: {
-// 		apikey: songApp.musicApiKey,
-// 		q_track: userInputSong,
-// 		q_artist: userInputArtist,
-// 		page_size: '1',
-// 		s_track_rating: 'desc',
-// 		format: 'jsonp',
-// 	},
-// 	dataType: 'jsonp',
-// }).then(res => {
-// 	const topTrack = res.message.body.track_list[0];
-// 	console.log(topTrack);
-// 	// if there's no top track returned, print error message to screen
-// 	if (topTrack === undefined) {
-// 		songApp.lyricsSections[0].insertAdjacentHTML(
-// 			'beforeend',
-// 			`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`,
-// 		);
-// 		songApp.lyricsSections[0].style.display = 'block';
-// 	} else {
-// 		// otherwise, update the song name and artist name with official titles from api
-// 		songApp.songName = topTrack.track.track_name;
-// 		songApp.artistName = topTrack.track.artist_name;
-// 		// send track id to get lyrics method
-// 		songApp.getLyrics(topTrack.track.track_id);
-// 	}
-// });
-
-// Ajax request from get lyrics method
-// $.ajax({
-// 	url: `${songApp.musicURL}track.lyrics.get`,
-// 	type: 'GET',
-// 	data: {
-// 		apikey: songApp.musicApiKey,
-// 		track_id: musixTrackID,
-// 		format: 'jsonp',
-// 	},
-// 	dataType: 'jsonp',
-// }).then(res => {
-// 	const resLyrics = res.message.body.lyrics;
-// 	// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
-// 	if ($.isEmptyObject(res.message.body) || resLyrics.lyrics_body === '') {
-// 		// If there are no available lyrics, an error message is printed to say that there are no lyrics available
-// 		songApp.lyricsSections[0].insertAdjacentHTML(
-// 			'beforeend',
-// 			`<p>Sorry, there are no lyrics currently available for that song</p>`,
-// 		);
-// 		songApp.lyricsSections[0].style.display = 'block';
-// 	} else {
-// 		// if there are lyrics, saves the lyrics and prints them on the page after the original song section
-// 		songApp.copyright = resLyrics.lyrics_copyright;
-// 		songApp.songLyrics = resLyrics.lyrics_body;
-// 		songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
-// 		// After the song has been printed, enables the smash button
-// 		songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
-// 	}
-// });
-
-// smash song api request
-// return $.ajax({
-// 	url: `${songApp.thesaurusURL}${word}`,
-// 	type: 'GET',
-// 	data: {
-// 		key: songApp.thesaurusApiKey,
-// 	},
-// });
