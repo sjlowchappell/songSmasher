@@ -28,7 +28,7 @@ songApp.hideButtons = () => {
 songApp.searchSong = (userInputSong, userInputArtist) => {
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful.
 
-	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
+	const url = `${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
 
 	fetch(url)
 		.then(res => {
@@ -186,7 +186,6 @@ songApp.printLyrics = (section, lyrics) => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-	console.log('ready!');
 	const searchInputs = document.querySelectorAll('.searchInput');
 	const form = document.querySelector('form');
 
