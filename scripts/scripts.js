@@ -1,6 +1,6 @@
 const songApp = {};
 
-songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
+songApp.musicURL = 'https://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
 songApp.thesaurusURL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/';
 songApp.thesaurusApiKey = '9778e990-d5f5-49d8-88af-881a41b463a3';
