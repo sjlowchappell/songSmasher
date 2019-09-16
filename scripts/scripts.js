@@ -1,6 +1,6 @@
 const songApp = {};
 
-songApp.musicURL = 'https://api.musixmatch.com/ws/1.1/';
+songApp.musicURL = 'http://api.musixmatch.com/ws/1.1/';
 songApp.musicApiKey = '5bd428e80ba2d105deb6caa361ace5d6';
 songApp.thesaurusURL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/';
 songApp.thesaurusApiKey = '9778e990-d5f5-49d8-88af-881a41b463a3';
@@ -28,7 +28,7 @@ songApp.hideButtons = () => {
 songApp.searchSong = (userInputSong, userInputArtist) => {
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful.
 
-	const url = `${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
+	const url = `https://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
 
 	fetch(url)
 		.then(res => {
