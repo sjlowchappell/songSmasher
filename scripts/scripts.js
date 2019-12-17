@@ -16,9 +16,6 @@ songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
 songApp.smashButtons = document.querySelectorAll('.smashButton');
 
-console.log(songApp.firstLoader);
-console.log(songApp.secondLoader);
-
 songApp.showButtons = () => {
 	songApp.highlightButton.style.display = 'block';
 	songApp.resetButton.style.display = 'block';
@@ -60,8 +57,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 
 // gets the lyrics to a song from the musixmatch API based on returned track id
 songApp.getLyrics = musixTrackID => {
-	// ****************Print the first loader here
-	console.log('should show loader now!');
+	// Display the first loader here
 	songApp.firstLoader.style.display = 'inline-block';
 
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful. This works!
@@ -96,7 +92,7 @@ songApp.getLyrics = musixTrackID => {
 
 // takes the original song lyrics and a silly word frequency value. creates new song lyrics with random silly words depending on n value
 songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
-	// ****************Print the first loader here
+	// Display the second loader here
 	songApp.secondLoader.style.display = 'inline-block';
 	const individualWords = lyrics.split(' ');
 	const sillyLyrics = [];
@@ -193,7 +189,7 @@ songApp.printLyrics = (section, lyrics) => {
 	// appends copyright (required by API) at end
 	section.insertAdjacentHTML('beforeend', `<h4>${songApp.copyright}</h4>`);
 
-	// ****************REMOVE the loaders here
+	// Remove the loaders here
 	songApp.firstLoader.style.display = 'none';
 	songApp.secondLoader.style.display = 'none';
 	// displays the song
