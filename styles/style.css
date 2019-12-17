@@ -1,4 +1,3 @@
-@charset "UTF-8";
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block;
 }
@@ -62,7 +61,7 @@ pre {
 }
 
 q {
-  quotes: “”‘’;
+  quotes: \201C \201D \2018 \2019;
 }
 
 small {
@@ -77,11 +76,11 @@ sub, sup {
 }
 
 sup {
-  top: -0.5em;
+  top: -.5em;
 }
 
 sub {
-  bottom: -0.25em;
+  bottom: -.25em;
 }
 
 img {
@@ -95,7 +94,7 @@ svg:not(:root) {
 fieldset {
   border: 1px solid silver;
   margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
+  padding: .35em .625em .75em;
 }
 
 button, input, select, textarea {
@@ -118,13 +117,13 @@ button[disabled], input[disabled] {
 }
 
 input[type=checkbox], input[type=radio] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
 }
 
 input[type=search] {
   -webkit-appearance: textfield;
-  -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -156,13 +155,12 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   visibility: hidden;
   display: block;
   font-size: 0;
-  content: "";
+  content: '';
   clear: both;
   height: 0;
 }
 
 * {
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
@@ -175,7 +173,8 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   border: 0;
   padding: 0;
   white-space: nowrap;
-  clip-path: inset(100%);
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
   clip: rect(0 0 0);
   overflow: hidden;
 }
@@ -220,6 +219,7 @@ button {
     font-size: 6rem;
   }
 }
+
 header {
   color: #2c3e50;
   padding: 10vh 0;
@@ -230,10 +230,17 @@ header {
     padding: 5vh 0;
   }
 }
+
 form {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .searchInputContainer {
@@ -241,15 +248,19 @@ form {
   display: inline-block;
   margin: 15px;
 }
+
 .searchInputContainer .searchLabel {
   position: absolute;
   top: 0px;
   left: 5px;
+  -webkit-transition: top 0.5s, font-size 0.5s, left 0.5s;
   transition: top 0.5s, font-size 0.5s, left 0.5s;
 }
+
 .searchInputContainer .searchInput {
   padding-left: 5px;
 }
+
 .searchInputContainer .searchInput:hover + .searchLabel,
 .searchInputContainer .searchInput:focus + .searchLabel,
 .searchInputContainer .focused {
@@ -260,13 +271,16 @@ form {
 
 @media (max-width: 700px) {
   form {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
-
   .searchInputContainer {
     margin: 25px;
   }
 }
+
 .lyrics {
   background: #d8f1e3;
   padding: 35px 15%;
@@ -274,14 +288,16 @@ form {
   border-radius: 5px;
   border-left: 10px solid #2c3e50;
 }
+
 .lyrics h3 {
   position: relative;
 }
+
 .lyrics h3::after {
   position: absolute;
   top: 40px;
   left: 0px;
-  content: "";
+  content: '';
   width: 70px;
   border-bottom: 4px solid #2c3e50;
   border-bottom: 4px solid #35955f;
@@ -302,16 +318,25 @@ form {
     padding: 35px 5%;
   }
 }
+
 .buttons {
   padding: 50px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 70%;
   margin: 0 auto;
 }
+
 .buttons .smashButton {
-  flex: 0 0 auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 
 button {
@@ -321,9 +346,11 @@ button {
   border-radius: 10px;
   margin: 15px;
 }
+
 button:hover {
   background: #43ba77;
 }
+
 button:disabled {
   color: rgba(51, 51, 51, 0.5);
   background: rgba(216, 241, 227, 0.5);
@@ -337,24 +364,36 @@ button:disabled {
 
 @media (max-width: 700px) {
   .buttons {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
+
 footer {
   background: #333;
   color: #f4f4f4;
   padding: 15px 0px;
 }
+
 footer .logos {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 50%;
   margin: 0 auto;
 }
+
 footer .logo {
   margin: 15px;
 }
+
 footer .mw {
   max-width: 140px;
 }
@@ -364,11 +403,16 @@ footer .mw {
     width: 70%;
   }
 }
+
 @media (max-width: 450px) {
   footer .logos {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
 }
+
 html {
   text-align: center;
   scroll-behavior: smooth;
@@ -400,4 +444,75 @@ img {
   display: none;
 }
 
+/* Css Loader styles taken directly from https://loading.io/css/ */
+.testing {
+  width: 10px;
+  height: 10px;
+  background: purple;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 50px 0px 150px 0px;
+}
+
+.lds-ring div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #2c3e50;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #2c3e50 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.firstLoader,
+.secondLoader {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

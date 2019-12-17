@@ -9,10 +9,15 @@ songApp.artistName = '';
 songApp.songLyrics = '';
 songApp.smashedLyrics = '';
 songApp.copyright = '';
+songApp.firstLoader = document.querySelector('.firstLoader');
+songApp.secondLoader = document.querySelector('.secondLoader');
 songApp.lyricsSections = document.querySelectorAll('.lyrics');
 songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
 songApp.smashButtons = document.querySelectorAll('.smashButton');
+
+console.log(songApp.firstLoader);
+console.log(songApp.secondLoader);
 
 songApp.showButtons = () => {
 	songApp.highlightButton.style.display = 'block';
@@ -55,6 +60,10 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 
 // gets the lyrics to a song from the musixmatch API based on returned track id
 songApp.getLyrics = musixTrackID => {
+	// ****************Print the first loader here
+	console.log('should show loader now!');
+	songApp.firstLoader.style.display = 'inline-block';
+
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful. This works!
 
 	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.lyrics.get?apikey=${songApp.musicApiKey}%26track_id=${musixTrackID}`;
@@ -77,6 +86,7 @@ songApp.getLyrics = musixTrackID => {
 				// if there are lyrics, saves the lyrics and prints them on the page after the original song section
 				songApp.copyright = resLyrics.lyrics_copyright;
 				songApp.songLyrics = resLyrics.lyrics_body;
+				// ****************REMOVE the first loader here
 				songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
 				// After the song has been printed, enables the smash button
 				songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
@@ -84,8 +94,10 @@ songApp.getLyrics = musixTrackID => {
 		});
 };
 
-// takes the original song lyrics and a silly word frequency value (n). creates new song lyrics with random silly words depending on n value
-songApp.smashLyrics = (lyrics, n) => {
+// takes the original song lyrics and a silly word frequency value. creates new song lyrics with random silly words depending on n value
+songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
+	// ****************Print the first loader here
+	songApp.secondLoader.style.display = 'inline-block';
 	const individualWords = lyrics.split(' ');
 	const sillyLyrics = [];
 
@@ -108,10 +120,10 @@ songApp.smashLyrics = (lyrics, n) => {
 	async function createNewSong() {
 		// loops through an array of all the individual words of the original song
 		for (let i = 0; i < individualWords.length; i++) {
-			// based on input interval input n, grabs words in array. Makes sure it doesn't take the first word and checks for any words that may have a line break in them. example: if n = 10, this will take every tenth word check if it includes a line break in the word
+			// based on input interval value, grabs words in array. Makes sure it doesn't take the first word and checks for any words that may have a line break in them. example: if sillyFrequencyVal = 10, this will take every tenth word check if it includes a line break in the word
 			// if the the selected word is the 10th word but has a line break, it will look up the following word instead
 			// otherwise, the original word from the song remains the same
-			if (i !== 0 && i % n == 0 && !individualWords[i].includes('\n')) {
+			if (i !== 0 && i % sillyFrequencyVal == 0 && !individualWords[i].includes('\n')) {
 				// if the word is selected, send it to the ajax call and store the response
 				const response = await getWordResponse(individualWords[i]);
 				// check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
@@ -127,7 +139,7 @@ songApp.smashLyrics = (lyrics, n) => {
 							: `<span class="sillyWord">${response[getRandomNumber(response.length)]}</span>`,
 					);
 				}
-			} else if (i % n == 0 && individualWords[i].includes('\n')) {
+			} else if (i % sillyFrequencyVal == 0 && individualWords[i].includes('\n')) {
 				// if the word is selected but includes a new line, add the word itself to the array so the page structure is maintained
 				sillyLyrics.push(individualWords[i]);
 				// then send the next word to the ajax call and store the responsee
@@ -181,6 +193,9 @@ songApp.printLyrics = (section, lyrics) => {
 	// appends copyright (required by API) at end
 	section.insertAdjacentHTML('beforeend', `<h4>${songApp.copyright}</h4>`);
 
+	// ****************REMOVE the loaders here
+	songApp.firstLoader.style.display = 'none';
+	songApp.secondLoader.style.display = 'none';
 	// displays the song
 	section.style.display = 'block';
 };
