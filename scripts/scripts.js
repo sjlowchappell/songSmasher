@@ -33,9 +33,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 	const url = `https://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
 
 	fetch(url)
-		.then(res => {
-			return res.json();
-		})
+		.then(res => res.json())
 		.then(res => {
 			const topTrack = res.message.body.track_list[0];
 			// if there's no top track returned, print error message to screen
@@ -60,9 +58,7 @@ songApp.getLyrics = musixTrackID => {
 	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.lyrics.get?apikey=${songApp.musicApiKey}%26track_id=${musixTrackID}`;
 
 	fetch(url)
-		.then(res => {
-			return res.json();
-		})
+		.then(res => res.json())
 		.then(res => {
 			const resLyrics = res.message.body.lyrics;
 			// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
@@ -94,15 +90,12 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 	// makes an api call to get a response for the async function
 	const getWordResponse = word => {
 		const newurl = `${songApp.thesaurusURL}${word}?key=${songApp.thesaurusApiKey}`;
-		return fetch(newurl).then(res => {
-			return res.json();
-		});
+		return fetch(newurl).then(res => res.json());
 	};
 
 	// get random number function used to get a random index to select word from the array of word options in the thesaurus api response
-	function getRandomNumber(max) {
-		return Math.floor(Math.random() * Math.floor(max));
-	}
+	const getRandomNumber = max => Math.floor(Math.random() * Math.floor(max));
+
 	// async function so that we can build the song lyrics array with new words
 	async function createNewSong() {
 		// loops through an array of all the individual words of the original song
