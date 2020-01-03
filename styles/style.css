@@ -397,6 +397,7 @@ form {
           align-items: center;
   width: 70%;
   margin: 0 auto;
+  display: none;
 }
 
 .buttons .smashButton {
@@ -441,6 +442,7 @@ footer {
   background: #333;
   color: #f4f4f4;
   padding: 15px 0px;
+  margin-top: 100px;
 }
 
 footer .logos {

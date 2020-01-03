@@ -15,6 +15,7 @@ songApp.lyricsSections = document.querySelectorAll('.lyrics');
 songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
 songApp.smashButtons = document.querySelectorAll('.smashButton');
+songApp.buttons = document.querySelector('.buttons');
 
 songApp.setDisplayValue = (item, displayValue) => {
 	item.style.display = displayValue;
@@ -75,8 +76,7 @@ songApp.getLyrics = musixTrackID => {
 				songApp.songLyrics = resLyrics.lyrics_body;
 				// ****************REMOVE the first loader here
 				songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
-				// After the song has been printed, enables the smash button
-				songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
+				songApp.setDisplayValue(songApp.buttons, 'block');
 			}
 		});
 };
@@ -246,7 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		songApp.songName = '';
 		songApp.artistName = '';
 		searchInputs.forEach(searchInput => (searchInput.value = ''));
-		// sets the highlight and reset buttons to display: none
+		// sets buttons to display: none and enables smash buttons once again
+		songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
+		songApp.setDisplayValue(songApp.buttons, 'none');
 		songApp.setDisplayValue(songApp.highlightButton, 'none');
 		songApp.setDisplayValue(songApp.resetButton, 'none');
 	});
