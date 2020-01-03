@@ -16,18 +16,15 @@
 	background: darken($subtleAccent, 30);
 	color: $bodyFontColor;
 	border-radius: 10px;
+	margin: 15px;
 	&:hover {
 		background: darken($subtleAccent, 40);
 	}
 	&:disabled {
 		color: rgba($bodyFontColor, 0.5);
 		background: rgba($subtleAccent, 0.5);
-	}
-	&:disabled,
-	&:disabled a {
 		cursor: not-allowed;
 	}
-	margin: 15px;
 }
 
 .reset,

@@ -93,7 +93,7 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 	const getRandomNumber = max => Math.floor(Math.random() * Math.floor(max));
 
 	// async function so that we can build the song lyrics array with new words
-	async function createNewSong() {
+	const createNewSong = async () => {
 		// loops through an array of all the individual words of the original song
 		for (let i = 0; i < individualWords.length; i++) {
 			// based on input interval value, grabs words in array. Makes sure it doesn't take the first word and checks for any words that may have a line break in them. example: if sillyFrequencyVal = 10, this will take every tenth word check if it includes a line break in the word
@@ -148,7 +148,7 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 		// sets the highlight and reset buttons to display: block
 		songApp.setDisplayValue(songApp.highlightButton, 'block');
 		songApp.setDisplayValue(songApp.resetButton, 'block');
-	}
+	};
 	createNewSong();
 };
 
