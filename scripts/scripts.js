@@ -8,7 +8,6 @@ songApp.proxyURL = 'https://proxy.hackeryou.com/?reqUrl=';
 songApp.songName = '';
 songApp.artistName = '';
 songApp.songLyrics = '';
-songApp.smashedLyrics = '';
 songApp.copyright = '';
 songApp.firstLoader = document.querySelector('.firstLoader');
 songApp.secondLoader = document.querySelector('.secondLoader');
