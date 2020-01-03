@@ -20,6 +20,11 @@ songApp.setDisplayValue = (item, displayValue) => {
 	item.style.display = displayValue;
 };
 
+songApp.handleError = reason => {
+	songApp.lyricsSections[0].insertAdjacentHTML('beforeend', `<p>Sorry, ${reason}. Please try again.</p>`);
+	songApp.setDisplayValue(songApp.lyricsSections[0], 'block');
+};
+
 // Searches the musixmatch API for a track id
 songApp.searchSong = (userInputSong, userInputArtist) => {
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful.
@@ -34,11 +39,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 			const topTrack = res.message.body.track_list[0];
 			// if there's no top track returned, print error message to screen
 			if (topTrack === undefined) {
-				songApp.lyricsSections[0].insertAdjacentHTML(
-					'beforeend',
-					`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`,
-				);
-				songApp.setDisplayValue(songApp.lyricsSections[0], 'block');
+				songApp.handleError('we were unable to find this song and artist combination');
 			} else {
 				// otherwise, update the song name and artist name with official titles from api
 				songApp.songName = topTrack.track.track_name;
@@ -66,11 +67,8 @@ songApp.getLyrics = musixTrackID => {
 			// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
 			if (res.message.body.length === 0 || resLyrics.lyrics_body === '') {
 				// If there are no available lyrics, an error message is printed to say that there are no lyrics available
-				songApp.lyricsSections[0].insertAdjacentHTML(
-					'beforeend',
-					`<p>Sorry, there are no lyrics currently available for that song</p>`,
-				);
-				songApp.setDisplayValue(songApp.lyricsSections[0], 'block');
+				songApp.setDisplayValue(songApp.firstLoader, 'none');
+				songApp.handleError('there are no lyrics currently available for that song');
 			} else {
 				// if there are lyrics, saves the lyrics and prints them on the page after the original song section
 				songApp.copyright = resLyrics.lyrics_copyright;
