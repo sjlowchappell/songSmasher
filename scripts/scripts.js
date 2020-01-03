@@ -16,7 +16,7 @@ songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
 songApp.smashButtons = document.querySelectorAll('.smashButton');
 
-songApp.toggleDisplay = (item, displayValue) => {
+songApp.setDisplayValue = (item, displayValue) => {
 	item.style.display = displayValue;
 };
 
@@ -38,7 +38,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 					'beforeend',
 					`<p>Sorry, we were unable to find this song and artist combination. Please try again.</p>`,
 				);
-				songApp.toggleDisplay(songApp.lyricsSections[0], 'block');
+				songApp.setDisplayValue(songApp.lyricsSections[0], 'block');
 			} else {
 				// otherwise, update the song name and artist name with official titles from api
 				songApp.songName = topTrack.track.track_name;
@@ -52,7 +52,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 // gets the lyrics to a song from the musixmatch API based on returned track id
 songApp.getLyrics = musixTrackID => {
 	// Display the first loader here
-	songApp.toggleDisplay(songApp.firstLoader, 'inline-block');
+	songApp.setDisplayValue(songApp.firstLoader, 'inline-block');
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful. This works!
 
 	const url = `http://proxy.hackeryou.com/?reqUrl=${songApp.musicURL}track.lyrics.get?apikey=${songApp.musicApiKey}%26track_id=${musixTrackID}`;
@@ -70,7 +70,7 @@ songApp.getLyrics = musixTrackID => {
 					'beforeend',
 					`<p>Sorry, there are no lyrics currently available for that song</p>`,
 				);
-				songApp.toggleDisplay(songApp.lyricsSections[0], 'block');
+				songApp.setDisplayValue(songApp.lyricsSections[0], 'block');
 			} else {
 				// if there are lyrics, saves the lyrics and prints them on the page after the original song section
 				songApp.copyright = resLyrics.lyrics_copyright;
@@ -86,7 +86,7 @@ songApp.getLyrics = musixTrackID => {
 // takes the original song lyrics and a silly word frequency value. creates new song lyrics with random silly words depending on n value
 songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 	// Display the second loader here
-	songApp.toggleDisplay(songApp.secondLoader, 'inline-block');
+	songApp.setDisplayValue(songApp.secondLoader, 'inline-block');
 	const individualWords = lyrics.split(' ');
 	const sillyLyrics = [];
 
@@ -155,8 +155,8 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 		// sends the new song to print lyrics so that the new lyrics are printed on the page
 		songApp.printLyrics(songApp.lyricsSections[1], sillyLyrics.join(' '));
 		// sets the highlight and reset buttons to display: block
-		songApp.toggleDisplay(songApp.highlightButton, 'block');
-		songApp.toggleDisplay(songApp.resetButton, 'block');
+		songApp.setDisplayValue(songApp.highlightButton, 'block');
+		songApp.setDisplayValue(songApp.resetButton, 'block');
 	}
 	createNewSong();
 };
@@ -184,10 +184,10 @@ songApp.printLyrics = (section, lyrics) => {
 	section.insertAdjacentHTML('beforeend', `<h4>${songApp.copyright}</h4>`);
 
 	// Remove the loaders here
-	songApp.toggleDisplay(songApp.firstLoader, 'none');
-	songApp.toggleDisplay(songApp.secondLoader, 'none');
+	songApp.setDisplayValue(songApp.firstLoader, 'none');
+	songApp.setDisplayValue(songApp.secondLoader, 'none');
 	// displays the song
-	songApp.toggleDisplay(section, 'block');
+	songApp.setDisplayValue(section, 'block');
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			// spread operator puts nodes into an array, then removes each one
 			[...lyricsSection.childNodes].forEach(child => child.remove());
 			// hide the lyrics section
-			songApp.toggleDisplay(lyricsSection, 'none');
+			songApp.setDisplayValue(lyricsSection, 'none');
 		});
 	};
 
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		songApp.artistName = '';
 		searchInputs.forEach(searchInput => (searchInput.value = ''));
 		// sets the highlight and reset buttons to display: none
-		songApp.toggleDisplay(songApp.highlightButton, 'none');
-		songApp.toggleDisplay(songApp.resetButton, 'none');
+		songApp.setDisplayValue(songApp.highlightButton, 'none');
+		songApp.setDisplayValue(songApp.resetButton, 'none');
 	});
 });
