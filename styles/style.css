@@ -220,18 +220,18 @@ button {
   }
 }
 
-header {
+.header {
   color: #2c3e50;
   padding: 10vh 0;
 }
 
 @media (max-width: 700px) {
-  header {
+  .header {
     padding: 5vh 0;
   }
 }
 
-form {
+.form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -270,7 +270,7 @@ form {
 }
 
 @media (max-width: 700px) {
-  form {
+  .form {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
@@ -406,7 +406,7 @@ form {
           flex: 0 0 auto;
 }
 
-button {
+.button {
   padding: 10px;
   background: #67c992;
   color: #333;
@@ -414,17 +414,17 @@ button {
   margin: 15px;
 }
 
-button:hover {
+.button:hover {
   background: #43ba77;
 }
 
-button:disabled {
+.button:disabled {
   color: rgba(51, 51, 51, 0.5);
   background: rgba(216, 241, 227, 0.5);
 }
 
-button:disabled,
-button:disabled a {
+.button:disabled,
+.button:disabled a {
   cursor: not-allowed;
 }
 

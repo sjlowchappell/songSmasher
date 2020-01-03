@@ -11,7 +11,7 @@
 		<title>Song Smasher</title>
 	</head>
 	<body>
-		<header id="home">
+		<header class="header" id="home">
 			<div class="wrapper">
 				<h1>Song Smasher!</h1>
 				<p>Your favorite lyrics...just a little bit off</p>
@@ -19,7 +19,7 @@
 		</header>
 		<main>
 			<div class="wrapper">
-				<form>
+				<form class="form">
 					<div class="searchInputContainer">
 						<input class="searchInput" type="text" id="songName" required autocomplete="off" />
 						<label class="searchLabel" for="songName">Song Name:</label>
@@ -28,7 +28,7 @@
 						<input class="searchInput" type="text" id="artistName" required autocomplete="off" />
 						<label class="searchLabel" for="artistName">Artist Name:</label>
 					</div>
-					<button>Submit</button>
+					<button class="button">Submit</button>
 				</form>
 
 				<div class="lds-ring firstLoader">
@@ -41,13 +41,13 @@
 				<div id="originalSong" class="originalSong lyrics"></div>
 
 				<div class="buttonsContainer">
-					<button class="smashButton" name="smallSmash" data-smashlevel="12">
+					<button class="button smashButton" name="smallSmash" data-smashlevel="12">
 						<a href="#footer">Small Smash</a>
 					</button>
-					<button class="smashButton" name="normalSmash" data-smashlevel="8">
+					<button class="button smashButton" name="normalSmash" data-smashlevel="8">
 						<a href="#footer">Medium Smash</a>
 					</button>
-					<button class="smashButton" name="bigSmash" data-smashlevel="2">
+					<button class="button smashButton" name="bigSmash" data-smashlevel="2">
 						<a href="#footer">BIG SMASH!</a>
 					</button>
 				</div>
@@ -61,10 +61,10 @@
 
 				<div id="smashedSong" class="smashedSong lyrics"></div>
 
-				<button class="highlight">Toggle Silly Words Highlight</button>
+				<button class="button highlight">Toggle Silly Words Highlight</button>
 			</div>
 
-			<button class="reset">
+			<button class="button reset">
 				<a href="#home">Start Over</a>
 			</button>
 		</main>
