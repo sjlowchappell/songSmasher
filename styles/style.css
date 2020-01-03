@@ -423,6 +423,11 @@ button:disabled {
   background: rgba(216, 241, 227, 0.5);
 }
 
+button:disabled,
+button:disabled a {
+  cursor: not-allowed;
+}
+
 .reset,
 .highlight {
   display: none;
