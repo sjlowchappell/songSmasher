@@ -193,6 +193,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
+	const reset = () => {
+		// clear song lyrics, song and artist names, and inputs
+		clearSongs();
+		searchInputs.forEach(searchInput => (searchInput.value = ''));
+		// sets buttons to display: none and enables smash buttons once again
+		songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
+		songApp.setDisplayValue(songApp.buttons, 'none');
+		songApp.setDisplayValue(songApp.highlightButton, 'none');
+		songApp.setDisplayValue(songApp.resetButton, 'none');
+	};
+
 	searchInputs.forEach(searchInput => {
 		// if there is text in an input after input is blurred, keep label above input. otherwise, label goes over input (visually)
 		searchInput.addEventListener('blur', function() {
@@ -203,11 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	form.addEventListener('submit', e => {
 		e.preventDefault();
-		// clear out existing lyrics
-		clearSongs();
 		// save song name and artist name
 		songApp.songName = searchInputs[0].value;
 		songApp.artistName = searchInputs[1].value;
+		reset();
 		// search API
 		songApp.searchSong(songApp.songName, songApp.artistName);
 	});
@@ -228,16 +238,5 @@ document.addEventListener('DOMContentLoaded', () => {
 		sillyWords.forEach(sillyWord => sillyWord.classList.toggle('highlightStyling'));
 	});
 
-	songApp.resetButton.addEventListener('click', function(e) {
-		// clear song lyrics, song and artist names, and inputs
-		clearSongs();
-		songApp.songName = '';
-		songApp.artistName = '';
-		searchInputs.forEach(searchInput => (searchInput.value = ''));
-		// sets buttons to display: none and enables smash buttons once again
-		songApp.smashButtons.forEach(smashButton => smashButton.removeAttribute('disabled'));
-		songApp.setDisplayValue(songApp.buttons, 'none');
-		songApp.setDisplayValue(songApp.highlightButton, 'none');
-		songApp.setDisplayValue(songApp.resetButton, 'none');
-	});
+	songApp.resetButton.addEventListener('click', reset);
 });
