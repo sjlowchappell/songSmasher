@@ -38,7 +38,7 @@ songApp.searchSong = (userInputSong, userInputArtist) => {
 		.then(res => {
 			const topTrack = res.message.body.track_list[0];
 			// if there's no top track returned, print error message to screen
-			if (topTrack === undefined) {
+			if (!topTrack) {
 				songApp.handleError('we were unable to find this song and artist combination');
 			} else {
 				// otherwise, update the song name and artist name with official titles from api
@@ -108,7 +108,7 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 				// if the word is selected, send it to the ajax call and store the response
 				const response = await getWordResponse(individualWords[i]);
 				// check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
-				if (response[0] === undefined) {
+				if (!response[0]) {
 					sillyLyrics.push(individualWords[i]);
 				} else {
 					// checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
@@ -128,7 +128,7 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 				// then send the next word to the ajax call and store the responsee
 				const response = await getWordResponse(individualWords[i + 1]);
 				// check if there is a valid response. If response isn't valid, just plug the original word into the new array. If the response is valid, push the new silly word into the array
-				if (response[0] === undefined) {
+				if (!response[0]) {
 					sillyLyrics.push(individualWords[i + 1]);
 				} else {
 					// checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
