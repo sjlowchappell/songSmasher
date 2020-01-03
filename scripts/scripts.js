@@ -16,7 +16,7 @@ songApp.lyricsSections = document.querySelectorAll('.lyrics');
 songApp.highlightButton = document.querySelector('.highlight');
 songApp.resetButton = document.querySelector('.reset');
 songApp.smashButtons = document.querySelectorAll('.smashButton');
-songApp.buttons = document.querySelector('.buttons');
+songApp.buttons = document.querySelector('.buttonsContainer');
 
 songApp.setDisplayValue = (item, displayValue) => {
 	item.style.display = displayValue;
