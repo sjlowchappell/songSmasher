@@ -28,54 +28,49 @@ songApp.handleError = reason => {
 };
 
 // Searches the musixmatch API for a track id
-songApp.searchSong = (userInputSong, userInputArtist) => {
+songApp.searchSong = async (userInputSong, userInputArtist) => {
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful.
 
 	const url = `${songApp.proxyURL}${songApp.musicURL}track.search?apikey=${songApp.musicApiKey}%26s_track_rating=desc%26q_track=${userInputSong}%26q_artist=${userInputArtist}`;
 
-	fetch(url)
-		.then(res => res.json())
-		.then(res => {
-			const topTrack = res.message.body.track_list[0];
-			// if there's no top track returned, print error message to screen
-			if (!topTrack) {
-				songApp.handleError('we were unable to find this song and artist combination');
-			} else {
-				// otherwise, update the song name and artist name with official titles from api
-				songApp.songName = topTrack.track.track_name;
-				songApp.artistName = topTrack.track.artist_name;
-				// send track id to get lyrics method
-				songApp.getLyrics(topTrack.track.track_id);
-			}
-		});
+	const response = await fetch(url);
+	const data = await response.json();
+	const topTrack = data.message.body.track_list[0];
+	// if there's no top track returned, print error message to screen
+	if (!topTrack) {
+		songApp.handleError('we were unable to find this song and artist combination');
+	} else {
+		// otherwise, update the song name and artist name with official titles from api
+		songApp.songName = topTrack.track.track_name;
+		songApp.artistName = topTrack.track.artist_name;
+		// send track id to get lyrics method
+		songApp.getLyrics(topTrack.track.track_id);
+	}
 };
 
 // gets the lyrics to a song from the musixmatch API based on returned track id
-songApp.getLyrics = musixTrackID => {
+songApp.getLyrics = async musixTrackID => {
 	// Display the first loader here
 	songApp.setDisplayValue(songApp.firstLoader, 'inline-block');
 	// For some reason, the fetch request will not go through properly if you use the & symbol -> instead, need to use the URL code %26 in order for request to be successful. This works!
 
 	const url = `${songApp.proxyURL}${songApp.musicURL}track.lyrics.get?apikey=${songApp.musicApiKey}%26track_id=${musixTrackID}`;
 
-	fetch(url)
-		.then(res => res.json())
-		.then(res => {
-			const resLyrics = res.message.body.lyrics;
-			// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
-			if (res.message.body.length === 0 || resLyrics.lyrics_body === '') {
-				// If there are no available lyrics, an error message is printed to say that there are no lyrics available
-				songApp.setDisplayValue(songApp.firstLoader, 'none');
-				songApp.handleError('there are no lyrics currently available for that song');
-			} else {
-				// if there are lyrics, saves the lyrics and prints them on the page after the original song section
-				songApp.copyright = resLyrics.lyrics_copyright;
-				songApp.songLyrics = resLyrics.lyrics_body;
-				// ****************REMOVE the first loader here
-				songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
-				songApp.setDisplayValue(songApp.buttons, 'block');
-			}
-		});
+	const response = await fetch(url);
+	const data = await response.json();
+	const resLyrics = data.message.body.lyrics;
+	// Checks to see if there are available lyrics by seeing if the body of the returned info is empty
+	if (data.message.body.length === 0 || resLyrics.lyrics_body === '') {
+		// If there are no available lyrics, an error message is printed to say that there are no lyrics available
+		songApp.setDisplayValue(songApp.firstLoader, 'none');
+		songApp.handleError('there are no lyrics currently available for that song');
+	} else {
+		// if there are lyrics, saves the lyrics and prints them on the page after the original song section
+		songApp.copyright = resLyrics.lyrics_copyright;
+		songApp.songLyrics = resLyrics.lyrics_body;
+		songApp.printLyrics(songApp.lyricsSections[0], songApp.songLyrics);
+		songApp.setDisplayValue(songApp.buttons, 'block');
+	}
 };
 
 // takes the original song lyrics and a silly word frequency value. creates new song lyrics with random silly words depending on n value
