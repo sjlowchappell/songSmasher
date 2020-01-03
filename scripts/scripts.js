@@ -122,10 +122,12 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 					// checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
 					sillyLyrics.push(
 						response[0].hasOwnProperty('meta')
-							? `<span class="sillyWord">${
+							? `<span class="sillyWord highlightStyling">${
 									response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)]
 							  }</span>`
-							: `<span class="sillyWord">${response[getRandomNumber(response.length)]}</span>`,
+							: `<span class="sillyWord highlightStyling">${
+									response[getRandomNumber(response.length)]
+							  }</span>`,
 					);
 				}
 			} else if (i % sillyFrequencyVal == 0 && individualWords[i].includes('\n')) {
@@ -140,10 +142,12 @@ songApp.smashLyrics = (lyrics, sillyFrequencyVal) => {
 					// checks to see whether the word has synonyms (i.e. if the api call response includes the property 'meta'). If so, returns a random synonym. If not, it returns the first suggested word
 					sillyLyrics.push(
 						response[0].hasOwnProperty('meta')
-							? `<span class="sillyWord">${
+							? `<span class="sillyWord highlightStyling">${
 									response[0].meta.syns[0][getRandomNumber(response[0].meta.syns[0].length)]
 							  }</span>`
-							: `<span class="sillyWord">${response[getRandomNumber(response.length)]}</span>`,
+							: `<span class="sillyWord highlightStyling">${
+									response[getRandomNumber(response.length)]
+							  }</span>`,
 					);
 					// iterates an extra i so that no duplicate words are added to the array
 				}
