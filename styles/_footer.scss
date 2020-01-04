@@ -16,6 +16,12 @@ footer {
 	.mw {
 		max-width: 140px;
 	}
+	a {
+		color: $subtleAccent;
+	}
+	a:hover {
+		color: darken($subtleAccent, 50);
+	}
 }
 
 @media (max-width: 800px) {

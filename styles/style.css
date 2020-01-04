@@ -469,6 +469,14 @@ footer .mw {
   max-width: 140px;
 }
 
+footer a {
+  color: #d8f1e3;
+}
+
+footer a:hover {
+  color: #35955f;
+}
+
 @media (max-width: 800px) {
   footer .logos {
     width: 70%;
