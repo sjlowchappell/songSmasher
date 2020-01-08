@@ -243,6 +243,12 @@ button {
           align-items: center;
 }
 
+.formDescription {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
 .searchInputContainer {
   position: relative;
   display: inline-block;
@@ -275,6 +281,9 @@ button {
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
+  }
+  .formDescription {
+    width: 90%;
   }
   .searchInputContainer {
     margin: 25px;
